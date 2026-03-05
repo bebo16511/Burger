@@ -1,754 +1,756 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>BURGER NARRATIVE · luxury grill</title>
-    <!-- Fonts & Icons (lightweight) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <style>
-        /* RESET & GLOBAL */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-        body {
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            background: #0b0b0b;
-            color: #f0eee9;
-            line-height: 1.5;
-            overflow-x: hidden;
-            width: 100%;
-            transition: background 0.2s;
-        }
-        /* RTL / LTR base */
-        body[dir="ltr"] { text-align: left; }
-        body[dir="rtl"] { text-align: right; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>فلامن برجر · Flamen Burger</title>
+  <!-- Google Fonts: clean, modern Arabic (Cairo) & English (Poppins) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (minimal icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lottie (lightweight smoke) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <style>
+    /* ---------- RESET & BASE (mobile first) ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* glass + gradient variables */
-        :root {
-            --glass-dark: rgba(20, 20, 20, 0.7);
-            --glass-border: rgba(255, 215, 120, 0.15);
-            --gold: #e4b363;
-            --gold-light: #f5d7a1;
-            --shadow: 0 25px 40px -12px rgba(0,0,0,0.7);
-            --gradient-raw: linear-gradient(145deg, #1f1a15, #2b241e);
-        }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #0c0c0c;
+      color: #fff;
+      line-height: 1.5;
+      overflow-x: hidden;
+      direction: rtl;
+    }
 
-        /* smooth images & lazy */
-        img { display: block; max-width: 100%; height: auto; will-change: transform; }
-        [loading="lazy"] { background: #1e1e1e; }
+    /* English override */
+    body.en {
+      font-family: 'Poppins', sans-serif;
+      direction: ltr;
+    }
 
-        /* container */
-        .container {
-            width: 90%;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 0.25rem;
-        }
+    /* Typography - carefully balanced for mobile */
+    h1 {
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
 
-        /* ----- STICKY HEADER (glass) ----- */
-        .sticky-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            background: rgba(10, 10, 10, 0.65);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 0.8rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s;
-        }
-        .logo {
-            font-size: 1.9rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(130deg, #f5d7a1, #e4b363);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            font-weight: 500;
-        }
-        .nav-links a {
-            color: #f0eee9;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.2s;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--gold);
-            transition: width 0.25s ease;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-        }
-        .lang-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            color: var(--gold-light);
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            backdrop-filter: blur(4px);
-        }
-        .lang-btn:hover {
-            background: var(--gold);
-            color: #0b0b0b;
-            border-color: var(--gold);
-        }
-        .hamburger {
-            display: none;
-            font-size: 2rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--gold);
-        }
-        /* mobile nav overlay */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(5,5,5,0.98);
-            backdrop-filter: blur(10px);
-            z-index: 200;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .mobile-menu.active { transform: translateX(0); }
-        .mobile-menu a {
-            color: white;
-            font-size: 2rem;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .close-menu {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 2.5rem;
-            color: var(--gold);
-            cursor: pointer;
-        }
+    h2 {
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #fff3d6, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        /* ----- HERO ----- */
-        .hero {
-            position: relative;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            padding: 4rem 0;
-        }
-        .hero-bg-image {
-            position: absolute;
-            width: 60%;
-            max-width: 800px;
-            right: 5%;
-            bottom: 0;
-            z-index: 1;
-            filter: drop-shadow(0 0 25px rgba(228,179,99,0.3));
-            transform: translateZ(0);
-            will-change: transform;
-        }
-        body[dir="ltr"] .hero-bg-image { right: auto; left: 5%; } /* LTR flip */
-        .floating-ingredients {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-        .ingredient {
-            position: absolute;
-            width: 90px;
-            height: auto;
-            opacity: 0.7;
-            filter: drop-shadow(0 10px 8px #00000050);
-        }
-        .ingredient.cheese { top: 20%; left: 12%; width: 130px; animation: float 6s infinite; }
-        .ingredient.tomato { bottom: 25%; right: 18%; width: 100px; animation: float 8s infinite reverse; }
-        .ingredient.lettuce { top: 45%; left: 65%; width: 115px; animation: float 7s infinite; }
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-18px) rotate(4deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-        .hero-content {
-            position: relative;
-            z-index: 5;
-            max-width: 600px;
-            background: var(--glass-dark);
-            backdrop-filter: blur(12px);
-            padding: 2.5rem;
-            border-radius: 40px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow);
-            margin: 0 5%;
-        }
-        .hero h1 {
-            font-size: clamp(2.8rem, 10vw, 5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            background: linear-gradient(to right, #fef9e7, #f5d7a1);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .hero p {
-            font-size: 1.3rem;
-            margin: 1.2rem 0 2rem;
-            opacity: 0.85;
-        }
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 1rem 2.8rem;
-            border-radius: 50px;
-            border: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            color: white;
-            border: 1px solid rgba(255,215,120,0.4);
-        }
-        .btn-primary {
-            background: var(--gold);
-            color: #0b0b0b;
-            border: none;
-            box-shadow: 0 12px 28px -10px #e4b363;
-        }
-        .btn-primary:hover { background: #f5c27b; transform: scale(1.02); }
-        .btn-outline:hover { background: rgba(255,215,120,0.15); border-color: var(--gold); }
+    h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
 
-        /* Sections general */
-        section { padding: 5rem 0; position: relative; }
-        .section-title {
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
-            margin-bottom: 3rem;
-            font-weight: 600;
-            background: linear-gradient(145deg, #fff, var(--gold-light));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
+    p {
+      font-size: 1rem;
+      color: #ddd;
+      margin-bottom: 1rem;
+    }
 
-        /* signature cards */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        .food-card {
-            background: rgba(25,22,20,0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(228,179,99,0.2);
-            border-radius: 40px;
-            padding: 2rem 1.5rem;
-            transition: 0.3s ease;
-            box-shadow: 0 30px 40px -30px black;
-            text-align: center;
-            transform: translateY(0);
-            will-change: transform;
-        }
-        .food-card:hover {
-            transform: translateY(-12px);
-            border-color: var(--gold);
-            box-shadow: 0 40px 40px -15px #e4b36330;
-        }
-        .food-card img {
-            width: 100%;
-            border-radius: 30px;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 10px 10px #000);
-        }
-        .price { color: var(--gold); font-size: 1.8rem; font-weight: 700; margin: 0.5rem 0; }
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.2rem;
+    }
 
-        /* why choose us / icons */
-        .icon-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2.5rem;
-            justify-content: center;
-        }
-        .icon-item {
-            flex: 1 1 180px;
-            text-align: center;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(6px);
-            border-radius: 60px;
-            padding: 2rem 1rem;
-            border: 1px solid var(--glass-border);
-        }
-        .icon-item i { font-size: 3rem; color: var(--gold); }
+    /* ---------- STICKY HEADER (clean, glass) ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 180, 70, 0.2);
+      padding: 0.7rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        /* gallery grid */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.2rem;
-        }
-        .gallery-grid img {
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 40px;
-            filter: grayscale(0.3);
-            transition: 0.3s;
-        }
-        .gallery-grid img:hover { filter: grayscale(0); transform: scale(0.98); }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffb347, #ff8c42);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
 
-        /* customer reviews */
-        .review-card {
-            background: rgba(20,20,20,0.6);
-            backdrop-filter: blur(16px);
-            padding: 2rem;
-            border-radius: 40px;
-            border: 1px solid var(--glass-border);
-        }
-        .stars { color: var(--gold); margin: 0.8rem 0; }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-        /* floating whatsapp */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 99;
-            background: #25d366;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.2rem;
-            box-shadow: 0 10px 20px #25d36660;
-            animation: pulse-w 2s infinite;
-            transition: 0.2s;
-            backdrop-filter: blur(4px);
-            border: 2px solid white;
-        }
-        body[dir="ltr"] .whatsapp-float { left: auto; right: 30px; } /* LTR flip */
-        @keyframes pulse-w { 0% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    .nav-links {
+      display: none; /* hidden on mobile */
+      gap: 1.5rem;
+    }
 
-        /* footer */
-        footer {
-            background: #050505;
-            padding: 3rem 0;
-            border-top: 1px solid #2a2a2a;
-        }
-        .social a {
-            color: var(--gold);
-            font-size: 1.8rem;
-            margin: 0 0.8rem;
-        }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
 
-        /* mobile first adjustments */
-        @media (max-width: 900px) {
-            .nav-links { display: none; }
-            .hamburger { display: block; }
-            .sticky-header { padding: 0.8rem 1rem; }
-            .hero-bg-image { width: 80%; opacity: 0.5; right: 0; }
-            body[dir="ltr"] .hero-bg-image { left: 0; }
-            .gallery-grid { grid-template-columns: repeat(2,1fr); }
-        }
-        @media (max-width: 500px) {
-            .hero-content { padding: 1.8rem; }
-            .btn { padding: 0.9rem 1.8rem; }
-            .icon-item { flex-basis: 140px; }
-        }
+    .nav-links a:hover {
+      color: #ffb347;
+    }
 
-        /* performance: will-change optimizations for GSAP */
-        .gsap-ready { will-change: transform, opacity; }
+    /* Language toggle - clean button */
+    .lang-switch {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 180, 70, 0.6);
+      color: #ffb347;
+      padding: 0.35rem 1rem;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 50px;
+      text-align: center;
+    }
 
-        /* glassmorphism extra */
-        .glass-card {
-            background: rgba(20,20,20,0.5);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 2rem;
-        }
-    </style>
+    .lang-switch:hover {
+      background: #ffb347;
+      color: #0c0c0c;
+      border-color: #ffb347;
+    }
+
+    /* Hamburger icon - clean */
+    .hamburger {
+      display: block;
+      font-size: 1.8rem;
+      color: #ffb347;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* Mobile menu overlay (sleek) */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 75%;
+      max-width: 320px;
+      height: 100vh;
+      background: rgba(15, 15, 15, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 200;
+      padding: 5rem 2rem 2rem;
+      transition: right 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      border-left: 2px solid #ffb347;
+      box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav a {
+      display: block;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .mobile-nav a:hover {
+      color: #ffb347;
+    }
+
+    .close-mobile {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.5rem;
+      font-size: 2.2rem;
+      color: #ffb347;
+      cursor: pointer;
+    }
+
+    /* ---------- BUTTONS (touch friendly, not oversized) ---------- */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1.5px solid #ffb347;
+      background: transparent;
+      color: #ffb347;
+      margin: 0.3rem 0.3rem 0.3rem 0;
+      box-shadow: 0 4px 15px rgba(255, 180, 70, 0.15);
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #ffb347;
+      color: #0c0c0c;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: #ff8c42;
+      transform: scale(1.03);
+    }
+
+    /* Floating WhatsApp (elegant, not oversized) */
+    .wa-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      z-index: 99;
+      transition: transform 0.3s;
+      animation: wa-float 3s infinite ease-in-out;
+    }
+
+    @keyframes wa-float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ---------- SECTIONS (balanced spacing) ---------- */
+    section {
+      padding: 3rem 0;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: auto;
+      padding-top: 1rem;
+      padding-bottom: 2rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      width: 100%;
+      max-width: 450px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      border-radius: 40px;
+      box-shadow: 0 20px 40px rgba(255, 140, 66, 0.3);
+    }
+
+    .floating-ing {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff5b0, #f4a261);
+      filter: blur(1px);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .lettuce {
+      background: #2d6a4f;
+      width: 75px;
+      height: 75px;
+      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+      top: 5%;
+      left: 0;
+    }
+
+    .tomato {
+      background: #c44536;
+      width: 60px;
+      height: 60px;
+      border-radius: 40% 60% 50% 50%;
+      bottom: 10%;
+      right: 0;
+    }
+
+    .cheese {
+      background: #d4a017;
+      width: 85px;
+      height: 28px;
+      border-radius: 30px;
+      top: 25%;
+      right: 5%;
+    }
+
+    /* smoke lottie container */
+    #smoke-lottie {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.5;
+    }
+
+    /* Cards grid (clean) */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .glass-card {
+      background: rgba(30, 30, 30, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 180, 70, 0.15);
+      border-radius: 28px;
+      padding: 1.8rem 1.2rem;
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .glass-card:hover {
+      border-color: #ffb347;
+      transform: translateY(-4px);
+    }
+
+    .burger-card {
+      text-align: center;
+    }
+
+    .burger-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 24px;
+      margin-bottom: 1rem;
+      background: #333;
+    }
+
+    /* Icon sizes consistent (1.5rem) */
+    .icon-md {
+      font-size: 1.5rem;
+      color: #ffb347;
+      margin-bottom: 0.8rem;
+      display: inline-block;
+    }
+
+    /* Why choose us cards */
+    .feature-card {
+      text-align: center;
+    }
+
+    .feature-card i {
+      font-size: 2rem; /* slightly larger for feature, but still balanced */
+      color: #ffb347;
+      margin-bottom: 1rem;
+    }
+
+    /* Gallery grid (clean) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+
+    /* Review cards */
+    .review-card {
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(6px);
+      border-radius: 24px;
+      padding: 1.5rem;
+      border-right: 3px solid #ffb347;
+    }
+
+    .review-card i {
+      color: #ffb347;
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+
+    /* Footer */
+    footer {
+      background: #080808;
+      padding: 3rem 1.2rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 180, 70, 0.2);
+    }
+
+    .social-icons {
+      margin: 1.5rem 0;
+    }
+
+    .social-icons a {
+      color: #ffb347;
+      font-size: 1.8rem;
+      margin: 0 1rem;
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+
+    /* ---------- LANGUAGE TOGGLE HELPERS ---------- */
+    [data-lang="ar"] .en-text { display: none; }
+    [data-lang="en"] .ar-text { display: none; }
+    [data-lang="en"] .en-text { display: inline; }
+
+    /* ---------- RESPONSIVE FINE-TUNING ---------- */
+    @media (min-width: 768px) {
+      .nav-links { display: flex; }
+      .hamburger { display: none; }
+      .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+      h1 { font-size: 3.2rem; }
+    }
+
+    @media (max-width: 380px) {
+      .btn { padding: 0.7rem 1.5rem; }
+      h2 { font-size: 1.8rem; }
+      .floating-ing { transform: scale(0.8); }
+    }
+
+    /* Images lazy blur */
+    img {
+      transition: filter 0.3s;
+    }
+  </style>
 </head>
-<body dir="rtl" data-lang="ar">
-    <!-- mobile overlay menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <i class="fas fa-times close-menu" id="closeMenu"></i>
-        <a href="#" data-i18n="nav-home">الرئيسية</a>
-        <a href="#" data-i18n="nav-menu">القائمة</a>
-        <a href="#" data-i18n="nav-offers">العروض</a>
-        <a href="#" data-i18n="nav-story">قصتنا</a>
-        <a href="#" data-i18n="nav-contact">اتصل بنا</a>
+<body data-lang="ar">
+  <!-- Floating WhatsApp (correct number) -->
+  <a href="https://wa.me/01223026013" class="wa-float" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+
+  <!-- Sticky header -->
+  <header>
+    <div class="logo">FLAMEN</div>
+    <div class="nav-menu">
+      <nav class="nav-links">
+        <a href="#hero" class="ar-text">الرئيسية</a><a href="#hero" class="en-text" style="display:none;">Home</a>
+        <a href="#menu" class="ar-text">المنيو</a><a href="#menu" class="en-text" style="display:none;">Menu</a>
+        <a href="#offers" class="ar-text">العروض</a><a href="#offers" class="en-text" style="display:none;">Offers</a>
+        <a href="#contact" class="ar-text">الاتصال</a><a href="#contact" class="en-text" style="display:none;">Contact</a>
+      </nav>
+      <div class="lang-switch" id="langToggle">EN</div>
+      <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </div>
+  </header>
 
-    <!-- Sticky header -->
-    <header class="sticky-header">
-        <div class="logo">BURGER NARRATIVE</div>
-        <nav class="nav-links">
-            <a href="#" data-i18n="nav-home">الرئيسية</a>
-            <a href="#" data-i18n="nav-menu">القائمة</a>
-            <a href="#" data-i18n="nav-offers">العروض</a>
-            <a href="#" data-i18n="nav-story">قصتنا</a>
-            <a href="#" data-i18n="nav-contact">اتصل بنا</a>
-        </nav>
-        <div class="header-actions">
-            <button class="lang-btn" id="langToggle">EN</button>
-            <i class="fas fa-bars hamburger" id="hamburgerBtn"></i>
-        </div>
-    </header>
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="close-mobile" id="closeMobile"><i class="fas fa-times"></i></div>
+    <a href="#hero" class="ar-text">الرئيسية</a><a href="#hero" class="en-text" style="display:none;">Home</a>
+    <a href="#menu" class="ar-text">المنيو</a><a href="#menu" class="en-text" style="display:none;">Menu</a>
+    <a href="#offers" class="ar-text">العروض</a><a href="#offers" class="en-text" style="display:none;">Offers</a>
+    <a href="#story" class="ar-text">قصتنا</a><a href="#story" class="en-text" style="display:none;">Story</a>
+    <a href="#contact" class="ar-text">الاتصال</a><a href="#contact" class="en-text" style="display:none;">Contact</a>
+  </div>
 
-    <!-- Floating WhatsApp -->
-    <a href="https://wa.me/201223026013?text=Hello%20I'd%20like%20to%20order" class="whatsapp-float" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
+  <main>
     <!-- HERO SECTION -->
-    <section class="hero">
-        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&auto=format&fit=crop" alt="hero burger" class="hero-bg-image" loading="eager">
-        <div class="floating-ingredients">
-            <img src="https://cdn-icons-png.flaticon.com/512/2928/2928227.png" alt="cheese" class="ingredient cheese" loading="lazy">
-            <img src="https://cdn-icons-png.flaticon.com/512/2909/2909863.png" alt="tomato" class="ingredient tomato" loading="lazy">
-            <img src="https://cdn-icons-png.flaticon.com/512/621/621085.png" alt="lettuce" class="ingredient lettuce" loading="lazy">
+    <section id="hero" class="hero">
+      <div class="container">
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=600&auto=format&fit=crop&q=80" alt="Burger" class="hero-img" loading="eager">
+          <div class="floating-ing lettuce"></div>
+          <div class="floating-ing tomato"></div>
+          <div class="floating-ing cheese"></div>
+          <div id="smoke-lottie"></div>
         </div>
-        <div class="hero-content glass-card">
-            <h1 data-i18n="hero-title">حكاية <br>البرجر الذهبي</h1>
-            <p data-i18n="hero-sub">نضارة تشوى بالنار، صوص سري، وخبز مخبوز يومياً</p>
-            <div class="btn-group">
-                <a href="#" class="btn btn-primary" data-i18n="order-now">اطلب الآن</a>
-                <a href="#" class="btn btn-outline" data-i18n="view-menu">شاهد القائمة</a>
-            </div>
+        <h1><span class="ar-text">طعم النار</span><span class="en-text" style="display:none;">Taste the Fire</span></h1>
+        <p style="font-size:1.1rem; max-width:500px;"><span class="ar-text">برجر أنجوس مشوي على الفحم مع صوص سري</span><span class="en-text" style="display:none;">Charcoal‑grilled Angus beef with secret sauce</span></p>
+        <div style="margin-top:1.5rem;">
+          <a href="#" class="btn btn-primary ar-text">اطلب الآن</a><a href="#" class="btn btn-primary en-text" style="display:none;">Order Now</a>
+          <a href="#menu" class="btn ar-text">عرض المنيو</a><a href="#menu" class="btn en-text" style="display:none;">View Menu</a>
         </div>
+      </div>
     </section>
 
-    <!-- SIGNATURE BURGERS -->
-    <section class="container">
-        <h2 class="section-title" data-i18n="signature-title">برجر التوقيع</h2>
+    <!-- SIGNATURE BURGERS MENU -->
+    <section id="menu">
+      <div class="container">
+        <h2><span class="ar-text">برجر التوقيع</span><span class="en-text" style="display:none;">Signature Burgers</span></h2>
         <div class="card-grid">
-            <div class="food-card"><img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d5?w=400&auto=format" loading="lazy"><h3 data-i18n="burger1">ذا كلاسيك</h3><p data-i18n="burger1-desc">لحم أنجوس، جبن شيدر، خس طازج</p><span class="price">49 SAR</span></div>
-            <div class="food-card"><img src="https://images.unsplash.com/photo-1553979459-d1387d4c9c8e?w=400&auto=format" loading="lazy"><h3 data-i18n="burger2">الجبن المذاب</h3><p data-i18n="burger2-desc">صوص الجبن الأربعة، كراميل بصل</p><span class="price">59 SAR</span></div>
-            <div class="food-card"><img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&auto=format" loading="lazy"><h3 data-i18n="burger3">مدخن حار</h3><p data-i18n="burger3-desc">فلفل هالبينو، صوص شيبوتل</p><span class="price">54 SAR</span></div>
-            <div class="food-card"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&auto=format" loading="lazy"><h3 data-i18n="burger4">ترفل</h3><p data-i18n="burger4-desc">صوص كمأة، جروير، روكا</p><span class="price">79 SAR</span></div>
+          <div class="glass-card burger-card">
+            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&auto=format&q=80" loading="lazy" alt="Smokey burger">
+            <h3><span class="ar-text">السمكي</span><span class="en-text" style="display:none;">Smokey</span></h3>
+            <p><span class="ar-text">صوص مدخن، جودة، بصل مقرمش</span><span class="en-text" style="display:none;">Smoked sauce, gouda, crispy onion</span></p>
+          </div>
+          <div class="glass-card burger-card">
+            <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?w=400&auto=format&q=80" loading="lazy" alt="Habanero burger">
+            <h3><span class="ar-text">الهابانيرو</span><span class="en-text" style="display:none;">Habanero</span></h3>
+            <p><span class="ar-text">جبنة حارة، فلفل، مايونيز حار</span><span class="en-text" style="display:none;">Spicy cheese, jalapeño, chipotle</span></p>
+          </div>
+          <div class="glass-card burger-card">
+            <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=400&auto=format&q=80" loading="lazy" alt="Truffle burger">
+            <h3><span class="ar-text">الترفل</span><span class="en-text" style="display:none;">Truffle</span></h3>
+            <p><span class="ar-text">مايونيز الترفل، مشروم، بارميزان</span><span class="en-text" style="display:none;">Truffle aioli, mushrooms, parmesan</span></p>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- SPECIAL OFFERS (glass) -->
-    <section class="container">
-        <h2 class="section-title" data-i18n="offers-title">عروض خاصة</h2>
+    <!-- SPECIAL OFFERS -->
+    <section id="offers" style="background: linear-gradient(145deg, #1f130f, #2a1e16);">
+      <div class="container">
+        <h2><span class="ar-text">عروض النار</span><span class="en-text" style="display:none;">Blazing Offers</span></h2>
+        <div class="glass-card" style="display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1.5rem;">
+          <div style="flex: 2; min-width: 200px;">
+            <h3 style="font-size:1.8rem;"><span class="ar-text">دبل سماش</span><span class="en-text" style="display:none;">Double Smash</span></h3>
+            <p style="font-size:2rem; font-weight:800; color:#ffb347;">59 SAR</p>
+          </div>
+          <img src="https://images.unsplash.com/photo-1553979459-d2229b7a6e42?w=300&auto=format&q=80" style="width:120px; border-radius:30px;" loading="lazy" alt="offer">
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US (icons clean) -->
+    <section>
+      <div class="container">
+        <h2><span class="ar-text">لماذا نحن</span><span class="en-text" style="display:none;">Why Choose Us</span></h2>
         <div class="card-grid">
-            <div class="food-card"><span class="price">-20%</span><h3 data-i18n="offer1">برجر + بطاطا</h3><p data-i18n="offer1-desc">وجبة العائلة الكبيرة</p></div>
-            <div class="food-card"><span class="price">2×1</span><h3 data-i18n="offer2">الاثنين المضاعف</h3><p data-i18n="offer2-desc">اشتر برجر واحصل على الثاني مجاناً</p></div>
+          <div class="glass-card feature-card">
+            <i class="fas fa-fire icon-md"></i>
+            <h3><span class="ar-text">فحم طبيعي</span><span class="en-text" style="display:none;">Natural Charcoal</span></h3>
+          </div>
+          <div class="glass-card feature-card">
+            <i class="fas fa-leaf icon-md"></i>
+            <h3><span class="ar-text">مكونات طازجة</span><span class="en-text" style="display:none;">Fresh ingredients</span></h3>
+          </div>
+          <div class="glass-card feature-card">
+            <i class="fas fa-truck icon-md"></i>
+            <h3><span class="ar-text">توصيل سريع</span><span class="en-text" style="display:none;">Fast delivery</span></h3>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- WHY CHOOSE US -->
-    <section class="container">
-        <h2 class="section-title" data-i18n="why-title">لماذا برجرنا?</h2>
-        <div class="icon-list">
-            <div class="icon-item"><i class="fas fa-fire"></i><h3 data-i18n="why1">فحم طبيعي</h3></div>
-            <div class="icon-item"><i class="fas fa-leaf"></i><h3 data-i18n="why2">خضار عضوية</h3></div>
-            <div class="icon-item"><i class="fas fa-cow"></i><h3 data-i18n="why3">لحوم أنجوس</h3></div>
-            <div class="icon-item"><i class="fas fa-clock"></i><h3 data-i18n="why4">توصيل خلال 30 د</h3></div>
+    <!-- FRESH INGREDIENTS (minimal) -->
+    <section>
+      <div class="container">
+        <h2><span class="ar-text">مكوناتنا الطازجة</span><span class="en-text" style="display:none;">Fresh Ingredients</span></h2>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+          <img src="https://images.unsplash.com/photo-1547516500-7d0f7e6b9e6b?w=200&auto=format&q=80" alt="tomato" style="width:90px; height:90px; border-radius:50%; border:2px solid #ffb347; object-fit:cover;" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1597362921503-6a03e9c2e9b0?w=200&auto=format&q=80" alt="lettuce" style="width:90px; height:90px; border-radius:50%; border:2px solid #ffb347; object-fit:cover;" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1582972236019-fa4a5c3e3f3d?w=200&auto=format&q=80" alt="cheese" style="width:90px; height:90px; border-radius:50%; border:2px solid #ffb347; object-fit:cover;" loading="lazy">
         </div>
+      </div>
     </section>
 
-    <!-- FRESH INGREDIENTS -->
-    <section class="container">
-        <h2 class="section-title" data-i18n="ingredients-title">مكونات نضرة</h2>
-        <div style="display:flex; gap:1rem; flex-wrap:wrap;justify-content:center;"> 
-            <img src="https://images.unsplash.com/photo-1585238342024-78d387f4a707?w=300&auto=format" loading="lazy" style="border-radius:40px;width:200px;">
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&auto=format" loading="lazy" style="border-radius:40px;width:200px;">
+    <!-- RESTAURANT STORY -->
+    <section id="story">
+      <div class="container">
+        <h2><span class="ar-text">قصتنا</span><span class="en-text" style="display:none;">Our Story</span></h2>
+        <div class="glass-card" style="max-width:700px; margin:0 auto;">
+          <p style="font-size:1.1rem;"><span class="ar-text">منذ ٢٠١٢ ونحن نشوي البرجر على الفحم، نمزج النكهات العالمية مع لمسة محلية.</span><span class="en-text" style="display:none;">Since 2012 we grill burgers over charcoal, blending global flavors with a local touch.</span></p>
         </div>
+      </div>
     </section>
 
-    <!-- STORY -->
-    <section class="container">
-        <div class="glass-card" style="max-width:800px;margin:auto;">
-            <h2 class="section-title" data-i18n="story-title">حكاية المطعم</h2>
-            <p data-i18n="story-text">بدأنا عام ٢٠١٥ بشغف للبرجر الفاخر. نخلط التوابل يدوياً ونشوي على الفحم يومياً.</p>
-        </div>
-    </section>
-
-    <!-- REVIEWS -->
-    <section class="container">
-        <h2 class="section-title" data-i18n="reviews-title">آراء الضيوف</h2>
+    <!-- CUSTOMER REVIEWS -->
+    <section>
+      <div class="container">
+        <h2><span class="ar-text">آراء العملاء</span><span class="en-text" style="display:none;">Reviews</span></h2>
         <div class="card-grid">
-            <div class="review-card"><p>"أفضل برجر ذقته في حياتي"</p><div class="stars">★★★★★</div><span>- سارة</span></div>
-            <div class="review-card"><p>"اللحم طري والصوص ممتاز"</p><div class="stars">★★★★★</div><span>- أحمد</span></div>
+          <div class="review-card">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <p style="margin-top:0.8rem;"><span class="ar-text">"الأفضل في المدينة!"</span><span class="en-text" style="display:none;">"Best in town!"</span></p>
+          </div>
+          <div class="review-card">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <p style="margin-top:0.8rem;"><span class="ar-text">"طعم لا يقاوم، خدمة سريعة"</span><span class="en-text" style="display:none;">"Irresistible taste, fast service"</span></p>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- GALLERY -->
-    <section class="container">
-        <h2 class="section-title" data-i18n="gallery-title">معرض البرجر</h2>
+    <section>
+      <div class="container">
+        <h2><span class="ar-text">معرض البرجر</span><span class="en-text" style="display:none;">Burger Gallery</span></h2>
         <div class="gallery-grid">
-            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&auto=format" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d5?w=400&auto=format" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&auto=format" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&auto=format&q=80" loading="lazy" alt="burger">
+          <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=300&auto=format&q=80" loading="lazy" alt="burger">
+          <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=300&auto=format&q=80" loading="lazy" alt="burger">
+          <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?w=300&auto=format&q=80" loading="lazy" alt="burger">
         </div>
+      </div>
     </section>
 
     <!-- DELIVERY & LOCATIONS -->
-    <section class="container">
-        <h2 class="section-title" data-i18n="delivery-title">التوصيل والفروع</h2>
-        <div class="glass-card" style="display:flex;gap:2rem;flex-wrap:wrap;">
-            <div><i class="fas fa-map-pin"></i> <span data-i18n="loc1">الرياض، حي الملقا</span></div>
-            <div><i class="fas fa-truck"></i> <span data-i18n="delivery-time">توصيل 30 دقيقة أو مجاناً</span></div>
+    <section>
+      <div class="container">
+        <h2><span class="ar-text">التوصيل والفروع</span><span class="en-text" style="display:none;">Delivery & Locations</span></h2>
+        <div class="glass-card" style="text-align:center;">
+          <p><i class="fas fa-map-marker-alt icon-md" style="margin-left:0.5rem;"></i> <span class="ar-text">الرياض، جدة، الدمام</span><span class="en-text" style="display:none;">Riyadh, Jeddah, Dammam</span></p>
+          <p><i class="fas fa-motorcycle icon-md"></i> <span class="ar-text">توصيل خلال ٣٠ دقيقة</span><span class="en-text" style="display:none;">Delivery within 30 min</span></p>
         </div>
+      </div>
     </section>
 
-    <!-- CTA -->
-    <section class="container" style="text-align:center;">
-        <div class="glass-card">
-            <h2 data-i18n="cta-title">جاهز لتجربة البرجر الذهبي؟</h2>
-            <a href="#" class="btn btn-primary" style="margin-top:2rem;" data-i18n="order-now-cta">اطلب الان</a>
-        </div>
+    <!-- CALL TO ACTION -->
+    <section style="text-align:center;">
+      <div class="container">
+        <h2><span class="ar-text">جهز طلبك الآن</span><span class="en-text" style="display:none;">Ready to order?</span></h2>
+        <a href="#" class="btn btn-primary ar-text">اطلب عبر الواتساب</a><a href="#" class="btn btn-primary en-text" style="display:none;">Order on WhatsApp</a>
+      </div>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
-            <div class="logo">BURGER NARRATIVE</div>
-            <div class="social">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-x-twitter"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <div><small data-i18n="copyright">© 2025 جميع الحقوق محفوظة</small></div>
-        </div>
+    <footer id="contact">
+      <div class="logo" style="font-size:2.5rem; margin-bottom:1rem;">FLAMEN</div>
+      <div class="social-icons">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Snapchat"><i class="fab fa-snapchat"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+      <p style="color:#888; font-size:0.9rem;">© 2026 Flamen Burger · <span class="ar-text">جميع الحقوق محفوظة</span><span class="en-text" style="display:none;">All rights reserved</span></p>
     </footer>
+  </main>
 
-    <script>
-        (function() {
-            // ---------- BILINGUAL CONTENT (ARABIC default) ----------
-            const translations = {
-                ar: {
-                    'nav-home': 'الرئيسية',
-                    'nav-menu': 'القائمة',
-                    'nav-offers': 'العروض',
-                    'nav-story': 'قصتنا',
-                    'nav-contact': 'اتصل بنا',
-                    'hero-title': 'حكاية \nالبرجر الذهبي',
-                    'hero-sub': 'نضارة تشوى بالنار، صوص سري، وخبز مخبوز يومياً',
-                    'order-now': 'اطلب الآن',
-                    'view-menu': 'شاهد القائمة',
-                    'signature-title': 'برجر التوقيع',
-                    'burger1': 'ذا كلاسيك',
-                    'burger1-desc': 'لحم أنجوس، جبن شيدر، خس طازج',
-                    'burger2': 'الجبن المذاب',
-                    'burger2-desc': 'صوص الجبن الأربعة، كراميل بصل',
-                    'burger3': 'مدخن حار',
-                    'burger3-desc': 'فلفل هالبينو، صوص شيبوتل',
-                    'burger4': 'ترفل',
-                    'burger4-desc': 'صوص كمأة، جروير، روكا',
-                    'offers-title': 'عروض خاصة',
-                    'offer1': 'برجر + بطاطا',
-                    'offer1-desc': 'وجبة العائلة الكبيرة',
-                    'offer2': 'الاثنين المضاعف',
-                    'offer2-desc': 'اشتر برجر واحصل على الثاني مجاناً',
-                    'why-title': 'لماذا برجرنا?',
-                    'why1': 'فحم طبيعي',
-                    'why2': 'خضار عضوية',
-                    'why3': 'لحوم أنجوس',
-                    'why4': 'توصيل خلال 30 د',
-                    'ingredients-title': 'مكونات نضرة',
-                    'story-title': 'حكاية المطعم',
-                    'story-text': 'بدأنا عام ٢٠١٥ بشغف للبرجر الفاخر. نخلط التوابل يدوياً ونشوي على الفحم يومياً.',
-                    'reviews-title': 'آراء الضيوف',
-                    'gallery-title': 'معرض البرجر',
-                    'delivery-title': 'التوصيل والفروع',
-                    'loc1': 'الرياض، حي الملقا',
-                    'delivery-time': 'توصيل ٣٠ دقيقة أو مجاناً',
-                    'cta-title': 'جاهز لتجربة البرجر الذهبي؟',
-                    'order-now-cta': 'اطلب الان',
-                    'copyright': '© 2025 جميع الحقوق محفوظة'
-                },
-                en: {
-                    'nav-home': 'Home',
-                    'nav-menu': 'Menu',
-                    'nav-offers': 'Offers',
-                    'nav-story': 'Our Story',
-                    'nav-contact': 'Contact',
-                    'hero-title': 'The Golden<br>Burger Saga',
-                    'hero-sub': 'Char-grilled freshness, secret sauce, daily baked buns',
-                    'order-now': 'Order Now',
-                    'view-menu': 'View Menu',
-                    'signature-title': 'Signature Burgers',
-                    'burger1': 'The Classic',
-                    'burger1-desc': 'Angus beef, cheddar, fresh lettuce',
-                    'burger2': 'Melted Cheese',
-                    'burger2-desc': 'Four-cheese sauce, caramelized onions',
-                    'burger3': 'Smoky Hot',
-                    'burger3-desc': 'Jalapeño, chipotle sauce',
-                    'burger4': 'Truffle',
-                    'burger4-desc': 'Truffle sauce, gruyère, arugula',
-                    'offers-title': 'Special Offers',
-                    'offer1': 'Burger + Fries',
-                    'offer1-desc': 'Large family meal',
-                    'offer2': 'Double Monday',
-                    'offer2-desc': 'Buy one get one free',
-                    'why-title': 'Why choose us?',
-                    'why1': 'Natural charcoal',
-                    'why2': 'Organic veggies',
-                    'why3': 'Angus beef',
-                    'why4': 'Delivery 30 min',
-                    'ingredients-title': 'Fresh ingredients',
-                    'story-title': 'Restaurant Story',
-                    'story-text': 'We started in 2015 with a passion for luxury burgers. We blend spices by hand and grill over charcoal daily.',
-                    'reviews-title': 'Customer Reviews',
-                    'gallery-title': 'Burger Gallery',
-                    'delivery-title': 'Delivery & Locations',
-                    'loc1': 'Riyadh, Malqa district',
-                    'delivery-time': '30 min delivery or free',
-                    'cta-title': 'Ready to taste the golden burger?',
-                    'order-now-cta': 'Order Now',
-                    'copyright': '© 2025 All rights reserved'
-                }
-            };
+  <script>
+    (function() {
+      // LANGUAGE TOGGLE
+      const langToggle = document.getElementById('langToggle');
+      const body = document.body;
+      let currentLang = 'ar';
 
-            const langToggle = document.getElementById('langToggle');
-            const body = document.body;
-            let currentLang = 'ar'; // default
+      function setLanguage(lang) {
+        body.setAttribute('data-lang', lang);
+        if (lang === 'en') {
+          body.classList.add('en');
+          body.style.direction = 'ltr';
+          langToggle.textContent = 'AR';
+        } else {
+          body.classList.remove('en');
+          body.style.direction = 'rtl';
+          langToggle.textContent = 'EN';
+        }
+        // force all .en-text / .ar-text visibility via CSS
+        ScrollTrigger.refresh(); // if any scroll positions depend on height
+      }
 
-            function applyLanguage(lang) {
-                currentLang = lang;
-                const elements = document.querySelectorAll('[data-i18n]');
-                elements.forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-                    if (translations[lang] && translations[lang][key]) {
-                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                            el.placeholder = translations[lang][key];
-                        } else {
-                            el.innerHTML = translations[lang][key];
-                        }
-                    }
-                });
-                // update direction
-                body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-                body.setAttribute('data-lang', lang);
-                langToggle.textContent = lang === 'ar' ? 'EN' : 'AR';
-            }
+      langToggle.addEventListener('click', () => {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        setLanguage(currentLang);
+      });
 
-            langToggle.addEventListener('click', () => {
-                const newLang = currentLang === 'ar' ? 'en' : 'ar';
-                applyLanguage(newLang);
-            });
+      setLanguage('ar'); // default
 
-            // mobile menu
-            const hamburger = document.getElementById('hamburgerBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const closeMenu = document.getElementById('closeMenu');
-            hamburger.addEventListener('click', () => mobileMenu.classList.add('active'));
-            closeMenu.addEventListener('click', () => mobileMenu.classList.remove('active'));
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.remove('active'));
-            });
+      // MOBILE MENU
+      const hamburger = document.getElementById('hamburger');
+      const mobileNav = document.getElementById('mobileNav');
+      const closeMobile = document.getElementById('closeMobile');
+      hamburger.addEventListener('click', () => mobileNav.classList.add('active'));
+      closeMobile.addEventListener('click', () => mobileNav.classList.remove('active'));
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => mobileNav.classList.remove('active'));
+      });
 
-            // ---------- GSAP SMOOTH SCROLL ANIMATIONS (lightweight) ----------
-            gsap.registerPlugin(ScrollTrigger);
+      // LOTTIE SMOKE (lightweight)
+      lottie.loadAnimation({
+        container: document.getElementById('smoke-lottie'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://assets2.lottiefiles.com/packages/lf20_p8bfn5kz.json' // subtle smoke/fire
+      });
 
-            // only run if not reduced motion
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                // Parallax hero image
-                gsap.to('.hero-bg-image', {
-                    y: 80,
-                    ease: 'power1.out',
-                    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
-                });
-                // fade floating ingredients slightly
-                gsap.to('.ingredient', {
-                    opacity: 0.3,
-                    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.5 }
-                });
-                // cards fade up
-                gsap.utils.toArray('.food-card, .icon-item, .review-card').forEach(el => {
-                    gsap.from(el, {
-                        y: 60,
-                        opacity: 0,
-                        duration: 1,
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 85%',
-                            end: 'bottom 20%',
-                            toggleActions: 'play none none reverse'
-                        }
-                    });
-                });
-                // gallery zoom subtle
-                gsap.utils.toArray('.gallery-grid img').forEach((img, i) => {
-                    gsap.from(img, {
-                        scale: 0.9,
-                        opacity: 0.5,
-                        duration: 0.8,
-                        scrollTrigger: { trigger: img, start: 'top 90%', end: 'bottom 30%', toggleActions: 'play none none reverse' }
-                    });
-                });
-            }
+      // GSAP SCROLL ANIMATIONS (optimized, lightweight)
+      gsap.registerPlugin(ScrollTrigger);
 
-            // Magnetic button effect (lightweight desktop only)
-            const btns = document.querySelectorAll('.btn');
-            btns.forEach(btn => {
-                btn.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width/2;
-                    const y = e.clientY - rect.top - rect.height/2;
-                    this.style.transform = `translate(${x*0.1}px, ${y*0.1}px)`;
-                });
-                btn.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                });
-            });
+      // fade-up for sections
+      gsap.utils.toArray('section').forEach(section => {
+        gsap.from(section.querySelectorAll('h2, .glass-card, .review-card, .gallery-grid img, .hero-img'), {
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            once: true,
+          },
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: 'power2.out'
+        });
+      });
 
-            // init language
-            applyLanguage('ar');
-        })();
-    </script>
+      // gentle float for ingredients
+      gsap.to('.lettuce', { y: -8, x: 5, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to('.tomato', { y: 8, x: -5, duration: 2.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to('.cheese', { y: -5, x: 8, duration: 2.1, repeat: -1, yoyo: true, ease: "sine.inOut" });
 
-    <!-- ensure images lazy and lightweight -->
-    <noscript>JavaScript required for full experience</noscript>
+      // magnetic effect for buttons (lightweight)
+      document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width/2;
+          const y = e.clientY - rect.top - rect.height/2;
+          gsap.to(btn, { x: x*0.1, y: y*0.1, duration: 0.3, ease: "power2.out" });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.4, ease: "elastic.out(1, 0.3)" });
+        });
+      });
+
+      // ensure no overflow
+      window.addEventListener('load', () => ScrollTrigger.refresh());
+    })();
+  </script>
+  <!-- ensure all en text is initially hidden via CSS, but extra inline style for safety -->
+  <style>
+    /* Double‑check language hiding */
+    [data-lang="ar"] .en-text { display: none !important; }
+    [data-lang="ar"] .ar-text { display: inline !important; }
+    [data-lang="en"] .ar-text { display: none !important; }
+    [data-lang="en"] .en-text { display: inline !important; }
+    /* ensure block-level elements display correctly */
+    [data-lang="en"] h2 .en-text, [data-lang="en"] p .en-text, [data-lang="en"] .btn .en-text { display: inline-block; }
+  </style>
 </body>
 </html>
