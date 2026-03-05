@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>شركة صالح إبراهيم باوراث وخالد علي باوراث للمحاماة و اللاستشارات القانونية | Saleh Ibrahim Bawarith & Khaled Ali Bawarith Law Firm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    :root {
+      --gold: #D4B87B;
+      --gold-rgb: 212,184,123;
+      --deep-navy: #050A14;
+    }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--deep-navy);
+      color: var(--gold);
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, h5, h6, p, span, a, li, div:not(.no-gold) {
+      color: inherit;
+    }
+    .text-shadow {
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+    }
+    .glass-card {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(var(--gold-rgb), 0.3);
+      transition: all 0.4s ease;
+      color: var(--gold);
+    }
+    .glass-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(var(--gold-rgb), 0.2);
+    }
+    .glass-card p, .glass-card li {
+      color: rgba(var(--gold-rgb), 0.9);
+    }
+    .gold-btn {
+      border: 1px solid var(--gold);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      transition: 0.4s;
+      color: var(--gold);
+    }
+    .gold-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 100%;
+      background: var(--gold);
+      z-index: -1;
+      transition: 0.4s;
+    }
+    .gold-btn:hover::before {
+      width: 100%;
+    }
+    .gold-btn:hover {
+      color: #000;
+    }
+    .section-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      opacity: 0.3;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .section-content {
+      position: relative;
+      z-index: 2;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0f1a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 10px;
+    }
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      max-width: 280px;
+      flex-wrap: nowrap;
+      overflow: hidden;
+    }
+    .brand-logo {
+      height: 32px;
+      width: auto;
+      flex-shrink: 0;
+    }
+    .brand-text {
+      font-size: clamp(0.45rem, 2vw, 0.7rem);
+      line-height: 1.3;
+      white-space: normal;
+      word-break: break-word;
+      font-weight: 900;
+      color: var(--gold);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) {
+      .brand-logo {
+        height: 40px;
+      }
+      .brand-text {
+        font-size: 1rem;
+        -webkit-line-clamp: 1;
+      }
+    }
+    @media (min-width: 1024px) {
+      .brand-text {
+        font-size: 0.7rem !important;
+        -webkit-line-clamp: 2 !important;
+        max-width: 380px;
+      }
+    }
+    .nav-link {
+      font-size: 0.7rem;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: 0.2rem 0.4rem;
+      transition: color 0.3s;
+    }
+    @media (min-width: 1280px) {
+      .nav-link {
+        font-size: 0.75rem;
+      }
+    }
+    .header-grid {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-center {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    @media (min-width: 1024px) {
+      .nav-center {
+        gap: 0.8rem;
+      }
+    }
+    @media (min-width: 1280px) {
+      .nav-center {
+        gap: 1.2rem;
+      }
+    }
+    #hero h1 {
+      font-size: clamp(1rem, 5vw, 2rem);
+      line-height: 1.3;
+    }
+    #hero p {
+      font-size: clamp(0.7rem, 3vw, 0.95rem);
+    }
+    h2:not(.brand-text) {
+      font-size: clamp(0.65rem, 2.5vw, 0.8rem) !important;
+    }
+    h3.font-black {
+      font-size: clamp(1.2rem, 4vw, 2.2rem) !important;
+    }
+    .glass-card h4 {
+      font-size: clamp(0.9rem, 3vw, 1.2rem) !important;
+    }
+    .glass-card p {
+      font-size: clamp(0.65rem, 2vw, 0.8rem) !important;
+    }
+    .stat-number {
+      font-size: clamp(1.2rem, 4vw, 2rem) !important;
+    }
+    footer .footer-logo {
+      font-size: clamp(0.8rem, 2.5vw, 1.2rem) !important;
+    }
+    /* Preloader: خلفية سوداء خالصة، بدون poster، والفيديو متجاوب */
+    #preloader {
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 100;
+    }
+    #preloader video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* ديسكتوب: تغطية كاملة */
+      opacity: 1;
+    }
+    @media (max-width: 768px) {
+      #preloader video {
+        object-fit: contain; /* موبايل: عرض الفيديو بالكامل بدون قص */
+        background-color: black;
+      }
+    }
+    .lang-toggle {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--gold);
+      border-radius: 30px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      white-space: nowrap;
+      color: var(--gold);
+    }
+    .lang-toggle:hover {
+      background: var(--gold);
+      color: black;
+    }
+    .color-picker-panel {
+      position: absolute;
+      top: 60px;
+      left: 10px;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--gold);
+      border-radius: 30px;
+      padding: 10px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s;
+    }
+    .color-option:hover {
+      transform: scale(1.2);
+      border-color: white;
+    }
+    @media (max-width: 768px) {
+      .color-picker-panel {
+        top: 50px;
+        left: 5px;
+        flex-wrap: wrap;
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Preloader مُحسَّن: بدون poster، خلفية سوداء، فيديو لمرة واحدة فقط -->
+  <div id="preloader" class="fixed inset-0 flex items-center justify-center overflow-hidden">
+    <video autoplay muted playsinline preload="auto" id="preloaderVideo">
+      <source src="5.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <header class="fixed top-0 w-full z-50 py-1 px-2 md:py-1.5 md:px-4 bg-black/80 backdrop-blur-xl border-b border-gold/30 shadow-lg">
+    <div class="header-grid">
+      <div class="brand-container">
+        <img src="6.png" alt="شعار الشركة" class="brand-logo rounded-full border border-gold/50">
+        <span class="brand-text" data-i18n="brandName">شركة صالح إبراهيم باوراث وخالد علي باوراث للمحاماة و اللاستشارات القانونية</span>
+      </div>
+      <nav class="nav-center hidden md:flex">
+        <a href="#hero" class="nav-link hover:text-gold" data-i18n="navHome">الرئيسية</a>
+        <a href="#services" class="nav-link hover:text-gold" data-i18n="navServices">خدماتنا</a>
+        <a href="#about" class="nav-link hover:text-gold" data-i18n="navAbout">من نحن</a>
+        <a href="#stats" class="nav-link hover:text-gold" data-i18n="navStats">إحصائيات</a>
+        <a href="#clients" class="nav-link hover:text-gold" data-i18n="navClients">عملاؤنا</a>
+        <a href="#awards" class="nav-link hover:text-gold" data-i18n="navAwards">جوائز</a>
+        <a href="#faq" class="nav-link hover:text-gold" data-i18n="navFaq">الأسئلة</a>
+        <a href="#contact" class="nav-link hover:text-gold" data-i18n="navContact">العمل معنا</a>
+      </nav>
+      <div class="flex items-center gap-1 justify-end">
+        <div class="lang-toggle hidden md:inline-block" id="langToggle">EN</div>
+        <button id="menuToggle" class="block md:hidden text-gold text-2xl focus:outline-none">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    <div id="colorPickerPanel" class="color-picker-panel hidden"></div>
+  </header>
+
+  <div id="mobileMenu" class="fixed top-0 right-0 h-screen w-64 bg-black/95 backdrop-blur-xl z-[60] transform translate-x-full transition-transform duration-300 ease-in-out border-l border-gold/30 pt-20 px-6">
+    <button id="closeMenu" class="absolute top-5 left-5 text-gold text-3xl">
+      <i class="fas fa-times"></i>
+    </button>
+    <nav class="flex flex-col gap-5 text-right text-base font-bold">
+      <a href="#hero" class="hover:text-gold transition" data-i18n="navHome">الرئيسية</a>
+      <a href="#services" class="hover:text-gold transition" data-i18n="navServices">خدماتنا</a>
+      <a href="#about" class="hover:text-gold transition" data-i18n="navAbout">من نحن</a>
+      <a href="#stats" class="hover:text-gold transition" data-i18n="navStats">إحصائيات</a>
+      <a href="#clients" class="hover:text-gold transition" data-i18n="navClients">عملاؤنا</a>
+      <a href="#awards" class="hover:text-gold transition" data-i18n="navAwards">جوائز</a>
+      <a href="#faq" class="hover:text-gold transition" data-i18n="navFaq">الأسئلة</a>
+      <a href="#contact" class="hover:text-gold transition" data-i18n="navContact">العمل معنا</a>
+      <div class="border-t border-gold/30 my-2"></div>
+      <div class="lang-toggle text-center" id="langToggleMobile">EN</div>
+      <div class="color-palette-icon text-center mt-2" id="colorPaletteIconMobile" style="background:rgba(0,0,0,0.4); border:1px solid var(--gold); border-radius:30px; padding:4px 10px; font-size:13px; cursor:pointer;">
+        <i class="fas fa-palette ml-1"></i> الألوان
+      </div>
+    </nav>
+  </div>
+
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20">
+    <video class="section-video" autoplay muted loop playsinline>
+      <source src="4.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black"></div>
+    <div class="relative z-10 text-center px-3 max-w-5xl mx-auto">
+      <h1 class="text-shadow font-black mb-3 leading-tight">
+        <span class="line1" data-i18n="heroLine1">شركة صالح إبراهيم باوراث</span><br>
+        <span class="line2" data-i18n="heroLine2">وخالد على باوراث للمحاماة و الاستشارات القانونية</span>
+      </h1>
+      <p class="text-shadow max-w-3xl mx-auto mb-6 font-light px-2" data-i18n="heroDesc">
+        حيث تلتقي الخبرة بالأمانة، نحن لا ندافع عن قضيتك فحسب بل نحميك من مخاطر المستقبل.
+      </p>
+      <div class="flex flex-wrap gap-2 justify-center">
+        <div class="bg-black/40 border border-gold/30 px-3 py-1 md:px-5 md:py-1.5 rounded-full backdrop-blur-md text-xs md:text-sm">
+          <i class="fas fa-check-circle ml-1"></i> <span data-i18n="heroStat1">+500 قضية ناجحة</span>
+        </div>
+        <div class="bg-black/40 border border-gold/30 px-3 py-1 md:px-5 md:py-1.5 rounded-full backdrop-blur-md text-xs md:text-sm">
+          <i class="fas fa-globe ml-1"></i> <span data-i18n="heroStat2">تغطية دولية</span>
+        </div>
+      </div>
+      <div class="mt-6 md:mt-10">
+        <a href="#services" class="gold-btn inline-block px-6 md:px-8 py-2 md:py-3 text-sm md:text-base font-bold" data-i18n="heroBtn">اكتشف خدماتنا</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
+    <video class="section-video" autoplay muted loop playsinline>
+      <source src="2.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="section-content max-w-7xl mx-auto">
+      <div class="text-center mb-10 md:mb-14">
+        <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1" data-i18n="servicesSubtitle">تخصصاتنا</h2>
+        <h3 class="text-2xl sm:text-3xl md:text-5xl font-black" data-i18n="servicesTitle">مجالات الخبرة</h3>
+        <div class="h-0.5 w-16 bg-gold mx-auto mt-3"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7">
+        <div class="glass-card p-6 md:p-8 rounded-2xl">
+          <i class="fas fa-gavel text-2xl md:text-3xl mb-3 md:mb-4"></i>
+          <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-3" data-i18n="service1Title">التقاضي الجنائي</h4>
+          <p class="leading-relaxed" data-i18n="service1Desc">دفاع صلب في أعقد القضايا الجنائية أمام المحاكم العليا.</p>
+        </div>
+        <div class="glass-card p-6 md:p-8 rounded-2xl">
+          <i class="fas fa-handshake text-2xl md:text-3xl mb-3 md:mb-4"></i>
+          <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-3" data-i18n="service2Title">قانون الشركات</h4>
+          <p class="leading-relaxed" data-i18n="service2Desc">تأسيس وهيكلة الشركات وحماية العلامات التجارية عالمياً.</p>
+        </div>
+        <div class="glass-card p-6 md:p-8 rounded-2xl">
+          <i class="fas fa-scale-unbalanced text-2xl md:text-3xl mb-3 md:mb-4"></i>
+          <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-3" data-i18n="service3Title">التحكيم الدولي</h4>
+          <p class="leading-relaxed" data-i18n="service3Desc">حل المنازعات التجارية العابرة للحدود بأعلى معايير السرية.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
+    <video class="section-video" autoplay muted loop playsinline>
+      <source src="3.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="section-content max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-14">
+      <div class="w-full md:w-1/2">
+        <div class="relative group">
+          <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1000" class="rounded-2xl shadow-2xl border border-gold/20 w-full h-auto" alt="قانون">
+          <div class="absolute -bottom-3 md:-bottom-5 -right-3 md:-right-5 bg-gold p-3 md:p-6 rounded-2xl text-black text-center font-black text-xs md:text-sm">
+            <span class="text-xl md:text-3xl">25</span><br data-i18n="years"><span data-i18n="yearsText">عاماً من الخبرة</span>
+          </div>
+        </div>
+      </div>
+      <div class="w-full md:w-1/2">
+        <h2 class="text-base md:text-lg font-bold mb-2 md:mb-3" data-i18n="aboutSubtitle">لماذا باوارث؟</h2>
+        <h3 class="text-xl md:text-3xl lg:text-4xl font-black mb-3 md:mb-5 leading-tight" data-i18n="aboutTitle">نحن لا نربح القضايا فقط، بل نصنع السوابق القانونية.</h3>
+        <p class="text-sm md:text-base mb-5 md:mb-7 leading-relaxed" data-i18n="aboutDesc">
+          تأسست شركة صالح إبراهيم باوارث وخالد على باوارث للمحاماة لتكون المرجع الأول في الشرق الأوسط. نجمع بين الخبرة الأكاديمية العميقة والتحرك الميداني الجريء.
+        </p>
+        <ul class="space-y-2 text-xs md:text-sm">
+          <li class="flex items-center gap-2"><i class="fas fa-check"></i> <span data-i18n="aboutLi1">فريق من المستشارين الدوليين</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check"></i> <span data-i18n="aboutLi2">سرية بيانات مطلقة بنظام تشفير عسكري</span></li>
+          <li class="flex items-center gap-2"><i class="fas fa-check"></i> <span data-i18n="aboutLi3">استجابة فورية على مدار الساعة</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="stats" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
+    <video class="section-video" autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-lawyer-working-at-the-office-43862-large.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/70"></div>
+    <div class="section-content max-w-7xl mx-auto text-center">
+      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1" data-i18n="statsSubtitle">أرقامنا</h2>
+      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12" data-i18n="statsTitle">إحصائيات تروي قصتنا</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+        <div class="glass-card p-3 md:p-6 rounded-2xl">
+          <div class="stat-number text-2xl md:text-4xl font-black mb-0.5 md:mb-1">+500</div>
+          <p class="text-xs md:text-sm" data-i18n="stat1">قضية ناجحة</p>
+        </div>
+        <div class="glass-card p-3 md:p-6 rounded-2xl">
+          <div class="stat-number text-2xl md:text-4xl font-black mb-0.5 md:mb-1">+50</div>
+          <p class="text-xs md:text-sm" data-i18n="stat2">خبير قانوني</p>
+        </div>
+        <div class="glass-card p-3 md:p-6 rounded-2xl">
+          <div class="stat-number text-2xl md:text-4xl font-black mb-0.5 md:mb-1">15</div>
+          <p class="text-xs md:text-sm" data-i18n="stat3">فرع حول العالم</p>
+        </div>
+        <div class="glass-card p-3 md:p-6 rounded-2xl">
+          <div class="stat-number text-2xl md:text-4xl font-black mb-0.5 md:mb-1">25</div>
+          <p class="text-xs md:text-sm" data-i18n="stat4">عاماً من التميز</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="clients" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
+    <video class="section-video" autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-business-deal-handshake-338-large.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="section-content max-w-7xl mx-auto text-center">
+      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1" data-i18n="clientsSubtitle">ثقة العملاء</h2>
+      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12" data-i18n="clientsTitle">من شركاؤنا</h3>
+      <div class="flex flex-wrap justify-center gap-2 md:gap-5 items-center">
+        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client1">شركة أموال</div>
+        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client2">بنك الريان</div>
+        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client3">مؤسسة نماء</div>
+        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client4">مجموعة فرسان</div>
+        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client5">هيئة العدالة</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="awards" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
+    <video class="section-video" autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-conference-with-lots-of-people-341-large.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="section-content max-w-7xl mx-auto">
+      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1 text-center" data-i18n="awardsSubtitle">تكريمات</h2>
+      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12 text-center" data-i18n="awardsTitle">جوائز وتقديرات</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-7">
+        <div class="glass-card p-5 md:p-7 rounded-2xl text-center">
+          <i class="fas fa-trophy text-3xl md:text-4xl mb-2 md:mb-3"></i>
+          <h4 class="text-lg md:text-xl font-bold mb-1" data-i18n="award1Title">أفضل مكتب محاماة 2025</h4>
+          <p class="text-xs md:text-sm" data-i18n="award1Desc">جوائز الشرق الأوسط للقانون</p>
+        </div>
+        <div class="glass-card p-5 md:p-7 rounded-2xl text-center">
+          <i class="fas fa-medal text-3xl md:text-4xl mb-2 md:mb-3"></i>
+          <h4 class="text-lg md:text-xl font-bold mb-1" data-i18n="award2Title">التميز في التحكيم الدولي</h4>
+          <p class="text-xs md:text-sm" data-i18n="award2Desc">مجلة القانون العالمي</p>
+        </div>
+        <div class="glass-card p-5 md:p-7 rounded-2xl text-center">
+          <i class="fas fa-star text-3xl md:text-4xl mb-2 md:mb-3"></i>
+          <h4 class="text-lg md:text-xl font-bold mb-1" data-i18n="award3Title">جائزة الابتكار القانوني</h4>
+          <p class="text-xs md:text-sm" data-i18n="award3Desc">منتدى العدالة الدولي</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
+    <video class="section-video" autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-library-shelves-with-books-43865-large.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="section-content max-w-7xl mx-auto">
+      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1 text-center" data-i18n="faqSubtitle">استفساراتكم</h2>
+      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12 text-center" data-i18n="faqTitle">الأسئلة الشائعة</h3>
+      <div class="space-y-3 md:space-y-5">
+        <div class="glass-card p-4 md:p-5 rounded-2xl">
+          <h4 class="text-base md:text-lg font-bold mb-1" data-i18n="faq1Q">كيف أستشير محاميًا؟</h4>
+          <p class="text-xs md:text-sm" data-i18n="faq1A">يمكنك حجز استشارة عبر موقعنا أو الاتصال بفريق الدعم. نقدم استشارات أولية مجانية.</p>
+        </div>
+        <div class="glass-card p-4 md:p-5 rounded-2xl">
+          <h4 class="text-base md:text-lg font-bold mb-1" data-i18n="faq2Q">ما هي تكلفة الخدمات القانونية؟</h4>
+          <p class="text-xs md:text-sm" data-i18n="faq2A">تعتمد التكلفة على نوع القضية ومدى تعقيدها. نقدم عروض أسعار شفافة ومفصلة.</p>
+        </div>
+        <div class="glass-card p-4 md:p-5 rounded-2xl">
+          <h4 class="text-base md:text-lg font-bold mb-1" data-i18n="faq3Q">هل تتعاملون مع قضايا دولية؟</h4>
+          <p class="text-xs md:text-sm" data-i18n="faq3A">نعم، لدينا فريق متخصص في القضايا العابرة للحدود ولدينا شراكات مع مكاتب حول العالم.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
+    <video class="section-video" autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-office-with-computers-43864-large.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="section-content max-w-7xl mx-auto">
+      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1 text-center" data-i18n="contactSubtitle">تواصلوا معنا</h2>
+      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12 text-center" data-i18n="contactTitle">نحن هنا لمساعدتكم</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+        <div class="glass-card p-5 md:p-7 rounded-2xl">
+          <h4 class="text-lg md:text-xl font-bold mb-3 md:mb-5" data-i18n="contactInfoTitle">معلومات الاتصال</h4>
+          <ul class="space-y-2 md:space-y-3 text-xs md:text-sm">
+            <li><i class="fas fa-map-marker-alt ml-2"></i> <span data-i18n="address">الرياض، المملكة العربية السعودية</span></li>
+            <li><i class="fas fa-phone-alt ml-2"></i> +966 11 234 5678</li>
+            <li><i class="fas fa-envelope ml-2"></i> info@bawarith-law.com</li>
+            <li><i class="fas fa-clock ml-2"></i> <span data-i18n="workHours">السبت - الخميس: 9 صباحاً - 9 مساءً</span></li>
+          </ul>
+        </div>
+        <div class="glass-card p-5 md:p-7 rounded-2xl">
+          <h4 class="text-lg md:text-xl font-bold mb-3 md:mb-5" data-i18n="formTitle">أرسل رسالة</h4>
+          <form>
+            <input type="text" data-i18n-placeholder="namePlaceholder" placeholder="الاسم" class="w-full p-2 mb-2 md:mb-3 bg-black/50 border border-gold/30 rounded-lg text-xs md:text-sm">
+            <input type="email" data-i18n-placeholder="emailPlaceholder" placeholder="البريد الإلكتروني" class="w-full p-2 mb-2 md:mb-3 bg-black/50 border border-gold/30 rounded-lg text-xs md:text-sm">
+            <textarea rows="3" data-i18n-placeholder="messagePlaceholder" placeholder="الرسالة" class="w-full p-2 mb-2 md:mb-3 bg-black/50 border border-gold/30 rounded-lg text-xs md:text-sm"></textarea>
+            <button class="gold-btn w-full py-2 text-sm md:text-base font-bold" data-i18n="submitBtn">إرسال</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-black py-6 md:py-10 border-t border-gold/20 px-4 md:px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="footer-logo text-lg md:text-2xl font-black mb-3 md:mb-5" data-i18n="footerLogo">شركة صالح إبراهيم باوارث وخالد علي باوارث للمحاماة والاستشارات القانونية</div>
+      <div class="flex justify-center gap-3 md:gap-5 mb-4 md:mb-6 text-lg md:text-xl">
+        <a href="#" class="hover:text-gold transition"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="hover:text-gold transition"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-gold transition"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="hover:text-gold transition"><i class="fab fa-facebook"></i></a>
+      </div>
+      <p class="text-xs md:text-sm" data-i18n="copyright">© 2026 شركة باوارث للمحاماة. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // ========== PRELOADER مُحسَّن بالكامل ==========
+      const preloader = document.getElementById('preloader');
+      const preloaderVideo = document.getElementById('preloaderVideo');
+
+      // إزالة أي loop (التكرار) وجعل الفيديو يشتغل مرة واحدة فقط
+      preloaderVideo.removeAttribute('loop');
+
+      // دالة لإخفاء preloader بسلاسة
+      function hidePreloader() {
+        if (!preloader || preloader.style.display === 'none') return;
+        gsap.to(preloader, {
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          onComplete: () => {
+            preloader.style.display = 'none';
+          }
+        });
+      }
+
+      // عند انتهاء الفيديو نخفيه فوراً
+      preloaderVideo.addEventListener('ended', hidePreloader);
+      // لو حصل خطأ في تحميل الفيديو نستعمل التايم آوت الآمن
+      preloaderVideo.addEventListener('error', hidePreloader);
+      // تأمين: بعد 5 ثواني يختفي على أي حال (فيديو طويل أو معلق)
+      setTimeout(hidePreloader, 5000);
+
+      // باقي الكود: منتقي الألوان، Lenis، GSAP، Three.js، الترجمة...
+
+      const colorOptions = [
+        { name: 'ذهبي أساسي', hex: '#D4B87B', rgb: '212,184,123' },
+        { name: 'أصفر فاتح', hex: '#F0E68C', rgb: '240,230,140' },
+        { name: 'ذهبي غامق', hex: '#B8860B', rgb: '184,134,11' },
+        { name: 'ذهبي قديم', hex: '#CFB53B', rgb: '207,181,59' },
+        { name: 'فضي فاتح', hex: '#E0E0E0', rgb: '224,224,224' },
+        { name: 'كريمي', hex: '#FFFDD0', rgb: '255,253,208' },
+        { name: 'برونزي', hex: '#CD7F32', rgb: '205,127,50' },
+        { name: 'عاجي', hex: '#FFFFF0', rgb: '255,255,240' }
+      ];
+
+      const colorPanel = document.getElementById('colorPickerPanel');
+      colorOptions.forEach(color => {
+        const div = document.createElement('div');
+        div.className = 'color-option';
+        div.style.backgroundColor = color.hex;
+        div.setAttribute('data-hex', color.hex);
+        div.setAttribute('data-rgb', color.rgb);
+        div.setAttribute('title', color.name);
+        div.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const hex = this.getAttribute('data-hex');
+          const rgb = this.getAttribute('data-rgb');
+          document.documentElement.style.setProperty('--gold', hex);
+          document.documentElement.style.setProperty('--gold-rgb', rgb);
+          if (window.particlesMaterial) {
+            window.particlesMaterial.color.set(hex);
+          }
+          colorPanel.classList.add('hidden');
+        });
+        colorPanel.appendChild(div);
+      });
+
+      function toggleColorPanel() {
+        colorPanel.classList.toggle('hidden');
+      }
+
+      const colorIconMobile = document.getElementById('colorPaletteIconMobile');
+      if (colorIconMobile) {
+        colorIconMobile.addEventListener('click', function(e) {
+          e.stopPropagation();
+          toggleColorPanel();
+        });
+      }
+
+      document.addEventListener('click', function(e) {
+        if (!colorPanel.contains(e.target) && !colorIconMobile?.contains(e.target)) {
+          colorPanel.classList.add('hidden');
+        }
+      });
+
+      colorPanel.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+
+      // Lenis scroll
+      const lenis = new Lenis();
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // GSAP ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.utils.toArray('.section-content').forEach(section => {
+        gsap.from(section, {
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+          },
+          y: 80,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power3.out"
+        });
+      });
+      gsap.from('#hero h1', {
+        y: 100,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power4.out"
+      });
+
+      // Mobile menu
+      const menuToggle = document.getElementById('menuToggle');
+      const closeMenu = document.getElementById('closeMenu');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (menuToggle && closeMenu && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+          mobileMenu.classList.remove('translate-x-full');
+        });
+        closeMenu.addEventListener('click', () => {
+          mobileMenu.classList.add('translate-x-full');
+        });
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+          });
+        });
+      }
+
+      // Three.js particles
+      const heroSection = document.getElementById('hero');
+      if (heroSection) {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        heroSection.appendChild(renderer.domElement);
+        renderer.domElement.style.position = 'absolute';
+        renderer.domElement.style.top = '0';
+        renderer.domElement.style.left = '0';
+        renderer.domElement.style.zIndex = '1';
+        renderer.domElement.style.pointerEvents = 'none';
+
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 1000; i++) {
+          vertices.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const particlesMaterial = new THREE.PointsMaterial({ color: 0xD4B87B, size: 1.5 });
+        window.particlesMaterial = particlesMaterial;
+        const particles = new THREE.Points(geometry, particlesMaterial);
+        scene.add(particles);
+        camera.position.z = 1000;
+
+        function animate() {
+          requestAnimationFrame(animate);
+          particles.rotation.y += 0.0005;
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+      }
+
+      // الترجمة
+      const translations = {
+        ar: {
+          brandName: 'شركة صالح إبراهيم باوراث وخالد علي باوراث للمحاماة و اللاستشارات القانونية',
+          navHome: 'الرئيسية',
+          navServices: 'خدماتنا',
+          navAbout: 'من نحن',
+          navStats: 'إحصائيات',
+          navClients: 'عملاؤنا',
+          navAwards: 'جوائز',
+          navFaq: 'الأسئلة',
+          navContact: 'العمل معنا',
+          heroLine1: 'شركة صالح إبراهيم باوراث',
+          heroLine2: 'وخالد على باوراث للمحاماة و الاستشارات القانونية',
+          heroDesc: 'حيث تلتقي الخبرة بالأمانة، نحن لا ندافع عن قضيتك فحسب بل نحميك من مخاطر المستقبل.',
+          heroStat1: '+500 قضية ناجحة',
+          heroStat2: 'تغطية دولية',
+          heroBtn: 'اكتشف خدماتنا',
+          servicesSubtitle: 'تخصصاتنا',
+          servicesTitle: 'مجالات الخبرة',
+          service1Title: 'التقاضي الجنائي',
+          service1Desc: 'دفاع صلب في أعقد القضايا الجنائية أمام المحاكم العليا.',
+          service2Title: 'قانون الشركات',
+          service2Desc: 'تأسيس وهيكلة الشركات وحماية العلامات التجارية عالمياً.',
+          service3Title: 'التحكيم الدولي',
+          service3Desc: 'حل المنازعات التجارية العابرة للحدود بأعلى معايير السرية.',
+          aboutSubtitle: 'لماذا باوارث؟',
+          aboutTitle: 'نحن لا نربح القضايا فقط، بل نصنع السوابق القانونية.',
+          aboutDesc: 'تأسست شركة صالح إبراهيم باوارث وخالد على باوارث للمحاماة لتكون المرجع الأول في الشرق الأوسط. نجمع بين الخبرة الأكاديمية العميقة والتحرك الميداني الجريء.',
+          aboutLi1: 'فريق من المستشارين الدوليين',
+          aboutLi2: 'سرية بيانات مطلقة بنظام تشفير عسكري',
+          aboutLi3: 'استجابة فورية على مدار الساعة',
+          yearsText: 'عاماً من الخبرة',
+          statsSubtitle: 'أرقامنا',
+          statsTitle: 'إحصائيات تروي قصتنا',
+          stat1: 'قضية ناجحة',
+          stat2: 'خبير قانوني',
+          stat3: 'فرع حول العالم',
+          stat4: 'عاماً من التميز',
+          clientsSubtitle: 'ثقة العملاء',
+          clientsTitle: 'من شركاؤنا',
+          client1: 'شركة أموال',
+          client2: 'بنك الريان',
+          client3: 'مؤسسة نماء',
+          client4: 'مجموعة فرسان',
+          client5: 'هيئة العدالة',
+          awardsSubtitle: 'تكريمات',
+          awardsTitle: 'جوائز وتقديرات',
+          award1Title: 'أفضل مكتب محاماة 2025',
+          award1Desc: 'جوائز الشرق الأوسط للقانون',
+          award2Title: 'التميز في التحكيم الدولي',
+          award2Desc: 'مجلة القانون العالمي',
+          award3Title: 'جائزة الابتكار القانوني',
+          award3Desc: 'منتدى العدالة الدولي',
+          faqSubtitle: 'استفساراتكم',
+          faqTitle: 'الأسئلة الشائعة',
+          faq1Q: 'كيف أستشير محاميًا؟',
+          faq1A: 'يمكنك حجز استشارة عبر موقعنا أو الاتصال بفريق الدعم. نقدم استشارات أولية مجانية.',
+          faq2Q: 'ما هي تكلفة الخدمات القانونية؟',
+          faq2A: 'تعتمد التكلفة على نوع القضية ومدى تعقيدها. نقدم عروض أسعار شفافة ومفصلة.',
+          faq3Q: 'هل تتعاملون مع قضايا دولية؟',
+          faq3A: 'نعم، لدينا فريق متخصص في القضايا العابرة للحدود ولدينا شراكات مع مكاتب حول العالم.',
+          contactSubtitle: 'تواصلوا معنا',
+          contactTitle: 'نحن هنا لمساعدتكم',
+          contactInfoTitle: 'معلومات الاتصال',
+          address: 'الرياض، المملكة العربية السعودية',
+          workHours: 'السبت - الخميس: 9 صباحاً - 9 مساءً',
+          formTitle: 'أرسل رسالة',
+          namePlaceholder: 'الاسم',
+          emailPlaceholder: 'البريد الإلكتروني',
+          messagePlaceholder: 'الرسالة',
+          submitBtn: 'إرسال',
+          footerLogo: 'شركة صالح إبراهيم باوارث وخالد علي باوارث للمحاماة والاستشارات القانونية',
+          copyright: '© 2026 شركة باوارث للمحاماة. جميع الحقوق محفوظة.'
+        },
+        en: {
+          brandName: 'Saleh Ibrahim Bawarith & Khaled Ali Bawarith Law Firm',
+          navHome: 'Home',
+          navServices: 'Services',
+          navAbout: 'About',
+          navStats: 'Statistics',
+          navClients: 'Clients',
+          navAwards: 'Awards',
+          navFaq: 'FAQ',
+          navContact: 'Contact',
+          heroLine1: 'Saleh Ibrahim Bawarith',
+          heroLine2: '& Khaled Ali Bawarith Law Firm',
+          heroDesc: 'Where expertise meets trust. We don’t just defend your case; we protect you from future risks.',
+          heroStat1: '+500 Successful Cases',
+          heroStat2: 'International Coverage',
+          heroBtn: 'Discover Our Services',
+          servicesSubtitle: 'Our Expertise',
+          servicesTitle: 'Areas of Practice',
+          service1Title: 'Criminal Litigation',
+          service1Desc: 'Robust defense in the most complex criminal cases before supreme courts.',
+          service2Title: 'Corporate Law',
+          service2Desc: 'Company formation, structuring, and global trademark protection.',
+          service3Title: 'International Arbitration',
+          service3Desc: 'Cross-border commercial dispute resolution with highest confidentiality.',
+          aboutSubtitle: 'Why Bawarith?',
+          aboutTitle: 'We don’t just win cases; we set legal precedents.',
+          aboutDesc: 'Saleh Ibrahim Bawarith & Khaled Ali Bawarith Law Firm was established to be the premier reference in the Middle East. We combine deep academic expertise with bold field action.',
+          aboutLi1: 'Team of international consultants',
+          aboutLi2: 'Absolute data confidentiality with military-grade encryption',
+          aboutLi3: '24/7 immediate response',
+          yearsText: 'Years of experience',
+          statsSubtitle: 'Our Numbers',
+          statsTitle: 'Statistics That Tell Our Story',
+          stat1: 'Successful Cases',
+          stat2: 'Legal Experts',
+          stat3: 'Offices Worldwide',
+          stat4: 'Years of Excellence',
+          clientsSubtitle: 'Client Trust',
+          clientsTitle: 'Our Partners',
+          client1: 'Amwal Company',
+          client2: 'Al Rayan Bank',
+          client3: 'Nama Foundation',
+          client4: 'Fursan Group',
+          client5: 'Justice Authority',
+          awardsSubtitle: 'Honors',
+          awardsTitle: 'Awards & Recognitions',
+          award1Title: 'Best Law Firm 2025',
+          award1Desc: 'Middle East Law Awards',
+          award2Title: 'Excellence in International Arbitration',
+          award2Desc: 'Global Law Magazine',
+          award3Title: 'Legal Innovation Award',
+          award3Desc: 'International Justice Forum',
+          faqSubtitle: 'Your Inquiries',
+          faqTitle: 'Frequently Asked Questions',
+          faq1Q: 'How can I consult a lawyer?',
+          faq1A: 'You can book a consultation via our website or call our support team. We offer free initial consultations.',
+          faq2Q: 'What is the cost of legal services?',
+          faq2A: 'The cost depends on the case type and complexity. We provide transparent and detailed quotes.',
+          faq3Q: 'Do you handle international cases?',
+          faq3A: 'Yes, we have a specialized team for cross-border cases and partnerships with offices worldwide.',
+          contactSubtitle: 'Contact Us',
+          contactTitle: 'We Are Here to Help',
+          contactInfoTitle: 'Contact Information',
+          address: 'Riyadh, Saudi Arabia',
+          workHours: 'Sat - Thu: 9 AM - 9 PM',
+          formTitle: 'Send a Message',
+          namePlaceholder: 'Name',
+          emailPlaceholder: 'Email',
+          messagePlaceholder: 'Message',
+          submitBtn: 'Send',
+          footerLogo: 'Saleh Ibrahim Bawarith & Khaled Ali Bawarith Law Firm',
+          copyright: '© 2026 Bawarith Law Firm. All rights reserved.'
+        }
+      };
+
+      let currentLang = 'ar';
+
+      function updateLanguage(lang) {
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.getElementById('langToggle').textContent = lang === 'ar' ? 'EN' : 'AR';
+        if (document.getElementById('langToggleMobile')) {
+          document.getElementById('langToggleMobile').textContent = lang === 'ar' ? 'EN' : 'AR';
+        }
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (translations[lang][key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+              el.placeholder = translations[lang][key];
+            } else {
+              el.textContent = translations[lang][key];
+            }
+          }
+        });
+        const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+        placeholderElements.forEach(el => {
+          const key = el.getAttribute('data-i18n-placeholder');
+          if (translations[lang][key]) {
+            el.placeholder = translations[lang][key];
+          }
+        });
+      }
+
+      document.getElementById('langToggle').addEventListener('click', () => {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        updateLanguage(currentLang);
+      });
+      if (document.getElementById('langToggleMobile')) {
+        document.getElementById('langToggleMobile').addEventListener('click', () => {
+          currentLang = currentLang === 'ar' ? 'en' : 'ar';
+          updateLanguage(currentLang);
+        });
+      }
+
+      updateLanguage(currentLang);
+    })();
+  </script>
+</body>
+</html>
