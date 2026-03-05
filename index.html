@@ -1,928 +1,636 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <title>شركة صالح إبراهيم باوراث وخالد علي باوراث للمحاماة و اللاستشارات القانونية | Saleh Ibrahim Bawarith & Khaled Ali Bawarith Law Firm</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>BURG & CO • premium burger experience</title>
+  <!-- Font Awesome for icons (optional but nice) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Locomotive Scroll for smooth scrolling (lightweight) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
   <style>
-    :root {
-      --gold: #D4B87B;
-      --gold-rgb: 212,184,123;
-      --deep-navy: #050A14;
+    /* RESET & GLOBAL */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
     body {
-      font-family: 'Cairo', sans-serif;
-      background: var(--deep-navy);
-      color: var(--gold);
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      background: #0b0b0b;
+      color: #fff;
       overflow-x: hidden;
+      cursor: none; /* custom cursor */
     }
-    h1, h2, h3, h4, h5, h6, p, span, a, li, div:not(.no-gold) {
-      color: inherit;
+    /* custom cursor */
+    .cursor {
+      width: 32px;
+      height: 32px;
+      border: 2px solid #ffb347;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: transform 0.1s ease;
+      transform: translate(-50%, -50%);
+      backdrop-filter: blur(4px);
+      background: rgba(255, 180, 70, 0.1);
+      box-shadow: 0 0 20px #ffb347;
     }
-    .text-shadow {
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);
+    .cursor.hover {
+      transform: translate(-50%, -50%) scale(1.8);
+      background: rgba(255, 180, 70, 0.3);
+      border-color: #fff;
+      mix-blend-mode: normal;
     }
-    .glass-card {
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(var(--gold-rgb), 0.3);
-      transition: all 0.4s ease;
-      color: var(--gold);
+    /* locomotive scroll main container */
+    [data-scroll-container] {
+      min-height: 100vh;
     }
-    .glass-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(var(--gold-rgb), 0.2);
-    }
-    .glass-card p, .glass-card li {
-      color: rgba(var(--gold-rgb), 0.9);
-    }
-    .gold-btn {
-      border: 1px solid var(--gold);
+    /* sections */
+    section {
       position: relative;
-      z-index: 1;
+      width: 100%;
+      padding: 5rem 2rem;
       overflow: hidden;
-      transition: 0.4s;
-      color: var(--gold);
     }
-    .gold-btn::before {
-      content: '';
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 5;
+    }
+    h1, h2 {
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      background: linear-gradient(135deg, #fff8e7, #ffd966);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+    }
+    /* glassmorphism base */
+    .glass-card {
+      background: rgba(20, 20, 20, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 215, 140, 0.2);
+      border-radius: 32px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 2px rgba(255, 200, 100, 0.1) inset;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    /* sticky mobile order */
+    .mobile-order {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff8c42;
+      color: #0b0b0b;
+      font-weight: bold;
+      padding: 16px 32px;
+      border-radius: 60px;
+      border: none;
+      box-shadow: 0 10px 30px #ff8c42, 0 0 30px #ffb347;
+      z-index: 999;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      backdrop-filter: blur(4px);
+      white-space: nowrap;
+    }
+    /* buttons */
+    .btn {
+      background: rgba(255, 140, 66, 0.2);
+      border: 1.5px solid #ffb347;
+      color: #ffb347;
+      padding: 1rem 3rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 5px 20px rgba(255, 180, 70, 0.3);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover {
+      background: #ffb347;
+      color: #0b0b0b;
+      box-shadow: 0 0 30px #ffb347, 0 0 60px #ff8c42;
+      transform: scale(1.05);
+    }
+    /* hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-visual {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    #burgerCanvas {
       position: absolute;
       top: 0;
-      right: 0;
-      width: 0;
-      height: 100%;
-      background: var(--gold);
-      z-index: -1;
-      transition: 0.4s;
-    }
-    .gold-btn:hover::before {
+      left: 0;
       width: 100%;
-    }
-    .gold-btn:hover {
-      color: #000;
-    }
-    .section-video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      transform: translate(-50%, -50%);
-      object-fit: cover;
-      opacity: 0.3;
-      z-index: 0;
+      height: 100%;
+      z-index: 1;
       pointer-events: none;
     }
-    .section-content {
-      position: relative;
-      z-index: 2;
-    }
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0a0f1a;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--gold);
-      border-radius: 10px;
-    }
-    .brand-container {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      max-width: 280px;
-      flex-wrap: nowrap;
-      overflow: hidden;
-    }
-    .brand-logo {
-      height: 32px;
-      width: auto;
-      flex-shrink: 0;
-    }
-    .brand-text {
-      font-size: clamp(0.45rem, 2vw, 0.7rem);
-      line-height: 1.3;
-      white-space: normal;
-      word-break: break-word;
-      font-weight: 900;
-      color: var(--gold);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    @media (min-width: 768px) {
-      .brand-logo {
-        height: 40px;
-      }
-      .brand-text {
-        font-size: 1rem;
-        -webkit-line-clamp: 1;
-      }
-    }
-    @media (min-width: 1024px) {
-      .brand-text {
-        font-size: 0.7rem !important;
-        -webkit-line-clamp: 2 !important;
-        max-width: 380px;
-      }
-    }
-    .nav-link {
-      font-size: 0.7rem;
-      font-weight: 600;
-      white-space: nowrap;
-      padding: 0.2rem 0.4rem;
-      transition: color 0.3s;
-    }
-    @media (min-width: 1280px) {
-      .nav-link {
-        font-size: 0.75rem;
-      }
-    }
-    .header-grid {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .nav-center {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-    @media (min-width: 1024px) {
-      .nav-center {
-        gap: 0.8rem;
-      }
-    }
-    @media (min-width: 1280px) {
-      .nav-center {
-        gap: 1.2rem;
-      }
-    }
-    #hero h1 {
-      font-size: clamp(1rem, 5vw, 2rem);
-      line-height: 1.3;
-    }
-    #hero p {
-      font-size: clamp(0.7rem, 3vw, 0.95rem);
-    }
-    h2:not(.brand-text) {
-      font-size: clamp(0.65rem, 2.5vw, 0.8rem) !important;
-    }
-    h3.font-black {
-      font-size: clamp(1.2rem, 4vw, 2.2rem) !important;
-    }
-    .glass-card h4 {
-      font-size: clamp(0.9rem, 3vw, 1.2rem) !important;
-    }
-    .glass-card p {
-      font-size: clamp(0.65rem, 2vw, 0.8rem) !important;
-    }
-    .stat-number {
-      font-size: clamp(1.2rem, 4vw, 2rem) !important;
-    }
-    footer .footer-logo {
-      font-size: clamp(0.8rem, 2.5vw, 1.2rem) !important;
-    }
-    /* Preloader: خلفية سوداء خالصة، بدون poster، والفيديو متجاوب */
-    #preloader {
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      z-index: 100;
-    }
-    #preloader video {
+    .burger-main {
       width: 100%;
-      height: 100%;
-      object-fit: cover; /* ديسكتوب: تغطية كاملة */
+      height: auto;
+      filter: drop-shadow(0 0 40px #ff8c42) drop-shadow(0 0 80px #ff4d00);
+      transform-style: preserve-3d;
+      position: relative;
+      z-index: 10;
+    }
+    .floating-ingredient {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+      z-index: 15;
+      background: radial-gradient(circle at 30% 30%, #fff5b0, #f4a261);
+      mix-blend-mode: screen;
+    }
+    .lettuce {
+      background: radial-gradient(circle at 30% 30%, #b7e4c7, #2d6a4f);
+      width: 95px;
+      height: 95px;
+      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    }
+    .tomato {
+      background: radial-gradient(circle at 30% 30%, #ffb3b3, #c44536);
+      border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+    }
+    .cheese {
+      background: radial-gradient(circle at 30% 30%, #ffe68f, #d4a017);
+      width: 110px;
+      height: 40px;
+      border-radius: 30px;
+      transform: rotate(5deg);
+    }
+    /* menu cards */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .menu-card {
+      background: rgba(10, 10, 10, 0.5);
+      backdrop-filter: blur(16px);
+      border-radius: 40px;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(255, 200, 100, 0.3);
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, #ffb34720, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .menu-card:hover::before {
       opacity: 1;
     }
-    @media (max-width: 768px) {
-      #preloader video {
-        object-fit: contain; /* موبايل: عرض الفيديو بالكامل بدون قص */
-        background-color: black;
-      }
-    }
-    .lang-toggle {
-      background: rgba(0,0,0,0.4);
-      border: 1px solid var(--gold);
-      border-radius: 30px;
-      padding: 4px 10px;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      white-space: nowrap;
-      color: var(--gold);
-    }
-    .lang-toggle:hover {
-      background: var(--gold);
-      color: black;
-    }
-    .color-picker-panel {
+    .card-ingredient {
       position: absolute;
-      top: 60px;
-      left: 10px;
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--gold);
-      border-radius: 30px;
-      padding: 10px;
-      display: flex;
-      gap: 8px;
-      z-index: 100;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-    .color-option {
       width: 30px;
       height: 30px;
+      background: #ffb347;
       border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: transform 0.2s;
+      filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
     }
-    .color-option:hover {
-      transform: scale(1.2);
-      border-color: white;
+    /* reviews */
+    .reviews-grid {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
     }
+    .review-card {
+      flex: 1 1 280px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border-radius: 30px;
+      padding: 2rem;
+      border-left: 4px solid #ffb347;
+    }
+    /* footer / cta */
+    .cta-section {
+      background: linear-gradient(145deg, #1a0f0a, #2f1c0f);
+      border-radius: 60px 60px 0 0;
+      text-align: center;
+    }
+    /* sauce transition (animated) */
+    .sauce-divider {
+      height: 10px;
+      background: linear-gradient(90deg, #c92a0e, #f5c542, #c92a0e);
+      background-size: 200% 100%;
+      animation: sauceFlow 4s infinite alternate;
+      width: 100%;
+      box-shadow: 0 0 30px #ff6347;
+    }
+    @keyframes sauceFlow {
+      0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+      100% { background-position: 100% 50%; filter: hue-rotate(10deg); }
+    }
+    /* mobile optimization */
     @media (max-width: 768px) {
-      .color-picker-panel {
-        top: 50px;
-        left: 5px;
-        flex-wrap: wrap;
-        width: 150px;
-      }
+      .cursor { display: none; } /* no custom cursor on mobile */
+      body { cursor: auto; }
+      section { padding: 3rem 1rem; }
+      .mobile-order { display: block; }
+      .burger-main { max-width: 90%; }
+      .floating-ingredient { width: 50px; height: 50px; }
+      .lettuce { width: 60px; height: 60px; }
+      .cheese { width: 70px; height: 25px; }
+    }
+    /* lazy load blur */
+    img {
+      transition: filter 0.5s;
+    }
+    /* magnetic element example */
+    .magnetic-btn {
+      display: inline-block;
     }
   </style>
 </head>
 <body>
-  <!-- Preloader مُحسَّن: بدون poster، خلفية سوداء، فيديو لمرة واحدة فقط -->
-  <div id="preloader" class="fixed inset-0 flex items-center justify-center overflow-hidden">
-    <video autoplay muted playsinline preload="auto" id="preloaderVideo">
-      <source src="5.mp4" type="video/mp4">
-    </video>
-  </div>
+  <!-- custom cursor -->
+  <div class="cursor" id="customCursor"></div>
 
-  <header class="fixed top-0 w-full z-50 py-1 px-2 md:py-1.5 md:px-4 bg-black/80 backdrop-blur-xl border-b border-gold/30 shadow-lg">
-    <div class="header-grid">
-      <div class="brand-container">
-        <img src="6.png" alt="شعار الشركة" class="brand-logo rounded-full border border-gold/50">
-        <span class="brand-text" data-i18n="brandName">شركة صالح إبراهيم باوراث وخالد علي باوراث للمحاماة و اللاستشارات القانونية</span>
-      </div>
-      <nav class="nav-center hidden md:flex">
-        <a href="#hero" class="nav-link hover:text-gold" data-i18n="navHome">الرئيسية</a>
-        <a href="#services" class="nav-link hover:text-gold" data-i18n="navServices">خدماتنا</a>
-        <a href="#about" class="nav-link hover:text-gold" data-i18n="navAbout">من نحن</a>
-        <a href="#stats" class="nav-link hover:text-gold" data-i18n="navStats">إحصائيات</a>
-        <a href="#clients" class="nav-link hover:text-gold" data-i18n="navClients">عملاؤنا</a>
-        <a href="#awards" class="nav-link hover:text-gold" data-i18n="navAwards">جوائز</a>
-        <a href="#faq" class="nav-link hover:text-gold" data-i18n="navFaq">الأسئلة</a>
-        <a href="#contact" class="nav-link hover:text-gold" data-i18n="navContact">العمل معنا</a>
-      </nav>
-      <div class="flex items-center gap-1 justify-end">
-        <div class="lang-toggle hidden md:inline-block" id="langToggle">EN</div>
-        <button id="menuToggle" class="block md:hidden text-gold text-2xl focus:outline-none">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-    </div>
-    <div id="colorPickerPanel" class="color-picker-panel hidden"></div>
-  </header>
+  <!-- mobile sticky order button -->
+  <button class="mobile-order"><i class="fas fa-fire"></i> ORDER NOW <i class="fas fa-burger"></i></button>
 
-  <div id="mobileMenu" class="fixed top-0 right-0 h-screen w-64 bg-black/95 backdrop-blur-xl z-[60] transform translate-x-full transition-transform duration-300 ease-in-out border-l border-gold/30 pt-20 px-6">
-    <button id="closeMenu" class="absolute top-5 left-5 text-gold text-3xl">
-      <i class="fas fa-times"></i>
-    </button>
-    <nav class="flex flex-col gap-5 text-right text-base font-bold">
-      <a href="#hero" class="hover:text-gold transition" data-i18n="navHome">الرئيسية</a>
-      <a href="#services" class="hover:text-gold transition" data-i18n="navServices">خدماتنا</a>
-      <a href="#about" class="hover:text-gold transition" data-i18n="navAbout">من نحن</a>
-      <a href="#stats" class="hover:text-gold transition" data-i18n="navStats">إحصائيات</a>
-      <a href="#clients" class="hover:text-gold transition" data-i18n="navClients">عملاؤنا</a>
-      <a href="#awards" class="hover:text-gold transition" data-i18n="navAwards">جوائز</a>
-      <a href="#faq" class="hover:text-gold transition" data-i18n="navFaq">الأسئلة</a>
-      <a href="#contact" class="hover:text-gold transition" data-i18n="navContact">العمل معنا</a>
-      <div class="border-t border-gold/30 my-2"></div>
-      <div class="lang-toggle text-center" id="langToggleMobile">EN</div>
-      <div class="color-palette-icon text-center mt-2" id="colorPaletteIconMobile" style="background:rgba(0,0,0,0.4); border:1px solid var(--gold); border-radius:30px; padding:4px 10px; font-size:13px; cursor:pointer;">
-        <i class="fas fa-palette ml-1"></i> الألوان
-      </div>
-    </nav>
-  </div>
+  <!-- main smooth scroll container -->
+  <div data-scroll-container id="scroll-container">
+    <!-- hero section with 3D background + floating ingredients -->
+    <section class="hero" id="hero" data-scroll-section>
+      <div class="container" style="position: relative; z-index: 20;">
+        <div class="hero-visual">
+          <!-- 3D canvas for smoke/fire effect -->
+          <canvas id="burgerCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"></canvas>
+          
+          <!-- main burger image (cinematic) - high-res unsplash burger -->
+          <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=800&auto=format&fit=crop" 
+               alt="Premium burger" 
+               class="burger-main" 
+               style="position: relative; z-index: 10; border-radius: 30px;"
+               loading="lazy">
 
-  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20">
-    <video class="section-video" autoplay muted loop playsinline>
-      <source src="4.mp4" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black"></div>
-    <div class="relative z-10 text-center px-3 max-w-5xl mx-auto">
-      <h1 class="text-shadow font-black mb-3 leading-tight">
-        <span class="line1" data-i18n="heroLine1">شركة صالح إبراهيم باوراث</span><br>
-        <span class="line2" data-i18n="heroLine2">وخالد على باوراث للمحاماة و الاستشارات القانونية</span>
-      </h1>
-      <p class="text-shadow max-w-3xl mx-auto mb-6 font-light px-2" data-i18n="heroDesc">
-        حيث تلتقي الخبرة بالأمانة، نحن لا ندافع عن قضيتك فحسب بل نحميك من مخاطر المستقبل.
-      </p>
-      <div class="flex flex-wrap gap-2 justify-center">
-        <div class="bg-black/40 border border-gold/30 px-3 py-1 md:px-5 md:py-1.5 rounded-full backdrop-blur-md text-xs md:text-sm">
-          <i class="fas fa-check-circle ml-1"></i> <span data-i18n="heroStat1">+500 قضية ناجحة</span>
+          <!-- floating ingredients (absolutely positioned) -->
+          <div class="floating-ingredient lettuce" id="float1" style="top: 10%; left: 5%;"></div>
+          <div class="floating-ingredient tomato" id="float2" style="bottom: 15%; right: 0%;"></div>
+          <div class="floating-ingredient cheese" id="float3" style="top: 30%; right: 10%;"></div>
+          <div class="floating-ingredient tomato" id="float4" style="bottom: 30%; left: 15%;"></div>
         </div>
-        <div class="bg-black/40 border border-gold/30 px-3 py-1 md:px-5 md:py-1.5 rounded-full backdrop-blur-md text-xs md:text-sm">
-          <i class="fas fa-globe ml-1"></i> <span data-i18n="heroStat2">تغطية دولية</span>
+        <h1 style="font-size: clamp(3rem, 12vw, 7rem); line-height: 1; margin-top: 2rem; text-shadow: 0 0 30px #ffb347;">
+          FLAME <span style="color: #ffb347; -webkit-text-fill-color: initial;">GRILL</span>
+        </h1>
+        <p style="font-size: 1.3rem; max-width: 600px; margin: 1rem auto; backdrop-filter: blur(4px); padding: 1rem; border-radius: 60px;">Angus beef · smoked cheddar · caramelized onions</p>
+        <div class="magnetic-btn">
+          <a href="#" class="btn">EXPLORE TASTE</a>
         </div>
       </div>
-      <div class="mt-6 md:mt-10">
-        <a href="#services" class="gold-btn inline-block px-6 md:px-8 py-2 md:py-3 text-sm md:text-base font-bold" data-i18n="heroBtn">اكتشف خدماتنا</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="services" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
-    <video class="section-video" autoplay muted loop playsinline>
-      <source src="2.mp4" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="section-content max-w-7xl mx-auto">
-      <div class="text-center mb-10 md:mb-14">
-        <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1" data-i18n="servicesSubtitle">تخصصاتنا</h2>
-        <h3 class="text-2xl sm:text-3xl md:text-5xl font-black" data-i18n="servicesTitle">مجالات الخبرة</h3>
-        <div class="h-0.5 w-16 bg-gold mx-auto mt-3"></div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7">
-        <div class="glass-card p-6 md:p-8 rounded-2xl">
-          <i class="fas fa-gavel text-2xl md:text-3xl mb-3 md:mb-4"></i>
-          <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-3" data-i18n="service1Title">التقاضي الجنائي</h4>
-          <p class="leading-relaxed" data-i18n="service1Desc">دفاع صلب في أعقد القضايا الجنائية أمام المحاكم العليا.</p>
-        </div>
-        <div class="glass-card p-6 md:p-8 rounded-2xl">
-          <i class="fas fa-handshake text-2xl md:text-3xl mb-3 md:mb-4"></i>
-          <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-3" data-i18n="service2Title">قانون الشركات</h4>
-          <p class="leading-relaxed" data-i18n="service2Desc">تأسيس وهيكلة الشركات وحماية العلامات التجارية عالمياً.</p>
-        </div>
-        <div class="glass-card p-6 md:p-8 rounded-2xl">
-          <i class="fas fa-scale-unbalanced text-2xl md:text-3xl mb-3 md:mb-4"></i>
-          <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-3" data-i18n="service3Title">التحكيم الدولي</h4>
-          <p class="leading-relaxed" data-i18n="service3Desc">حل المنازعات التجارية العابرة للحدود بأعلى معايير السرية.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- sauce transition animation -->
+    <div class="sauce-divider" data-scroll-section></div>
 
-  <section id="about" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
-    <video class="section-video" autoplay muted loop playsinline>
-      <source src="3.mp4" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="section-content max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-14">
-      <div class="w-full md:w-1/2">
-        <div class="relative group">
-          <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1000" class="rounded-2xl shadow-2xl border border-gold/20 w-full h-auto" alt="قانون">
-          <div class="absolute -bottom-3 md:-bottom-5 -right-3 md:-right-5 bg-gold p-3 md:p-6 rounded-2xl text-black text-center font-black text-xs md:text-sm">
-            <span class="text-xl md:text-3xl">25</span><br data-i18n="years"><span data-i18n="yearsText">عاماً من الخبرة</span>
+    <!-- signature burgers menu -->
+    <section id="menu" data-scroll-section>
+      <div class="container">
+        <h2>signature <br> collection</h2>
+        <div class="menu-grid">
+          <div class="menu-card glass-card" id="card1">
+            <i class="fas fa-flame" style="color: #ff8c42; font-size: 2rem;"></i>
+            <h3 style="font-size: 2rem; margin: 1rem 0;">THE SMOKEY</h3>
+            <p>bacon jam, smoked gouda, onion rings</p>
+            <!-- hidden ingredient explosion items (cloned later) -->
+            <div class="card-ingredient" style="background: #f4d03f;"></div>
+            <div class="card-ingredient" style="background: #c0392b;"></div>
+            <div class="card-ingredient" style="background: #27ae60;"></div>
+          </div>
+          <div class="menu-card glass-card" id="card2">
+            <i class="fas fa-pepper-hot" style="color: #ff8c42; font-size: 2rem;"></i>
+            <h3 style="font-size: 2rem; margin: 1rem 0;">HABANERO HEAT</h3>
+            <p>jalapeño, pepperjack, chipotle aioli</p>
+            <div class="card-ingredient" style="background: #f39c12;"></div>
+            <div class="card-ingredient" style="background: #e74c3c;"></div>
+          </div>
+          <div class="menu-card glass-card" id="card3">
+            <i class="fas fa-mushroom" style="color: #ff8c42; font-size: 2rem;"></i>
+            <h3 style="font-size: 2rem; margin: 1rem 0;">TRUFFLE BURGER</h3>
+            <p>truffle aioli, mushrooms, parmesan crisp</p>
+            <div class="card-ingredient" style="background: #d35400;"></div>
+            <div class="card-ingredient" style="background: #f7dc6f;"></div>
           </div>
         </div>
       </div>
-      <div class="w-full md:w-1/2">
-        <h2 class="text-base md:text-lg font-bold mb-2 md:mb-3" data-i18n="aboutSubtitle">لماذا باوارث؟</h2>
-        <h3 class="text-xl md:text-3xl lg:text-4xl font-black mb-3 md:mb-5 leading-tight" data-i18n="aboutTitle">نحن لا نربح القضايا فقط، بل نصنع السوابق القانونية.</h3>
-        <p class="text-sm md:text-base mb-5 md:mb-7 leading-relaxed" data-i18n="aboutDesc">
-          تأسست شركة صالح إبراهيم باوارث وخالد على باوارث للمحاماة لتكون المرجع الأول في الشرق الأوسط. نجمع بين الخبرة الأكاديمية العميقة والتحرك الميداني الجريء.
-        </p>
-        <ul class="space-y-2 text-xs md:text-sm">
-          <li class="flex items-center gap-2"><i class="fas fa-check"></i> <span data-i18n="aboutLi1">فريق من المستشارين الدوليين</span></li>
-          <li class="flex items-center gap-2"><i class="fas fa-check"></i> <span data-i18n="aboutLi2">سرية بيانات مطلقة بنظام تشفير عسكري</span></li>
-          <li class="flex items-center gap-2"><i class="fas fa-check"></i> <span data-i18n="aboutLi3">استجابة فورية على مدار الساعة</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="stats" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
-    <video class="section-video" autoplay muted loop playsinline>
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-lawyer-working-at-the-office-43862-large.mp4" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-black/70"></div>
-    <div class="section-content max-w-7xl mx-auto text-center">
-      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1" data-i18n="statsSubtitle">أرقامنا</h2>
-      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12" data-i18n="statsTitle">إحصائيات تروي قصتنا</h3>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
-        <div class="glass-card p-3 md:p-6 rounded-2xl">
-          <div class="stat-number text-2xl md:text-4xl font-black mb-0.5 md:mb-1">+500</div>
-          <p class="text-xs md:text-sm" data-i18n="stat1">قضية ناجحة</p>
-        </div>
-        <div class="glass-card p-3 md:p-6 rounded-2xl">
-          <div class="stat-number text-2xl md:text-4xl font-black mb-0.5 md:mb-1">+50</div>
-          <p class="text-xs md:text-sm" data-i18n="stat2">خبير قانوني</p>
-        </div>
-        <div class="glass-card p-3 md:p-6 rounded-2xl">
-          <div class="stat-number text-2xl md:text-4xl font-black mb-0.5 md:mb-1">15</div>
-          <p class="text-xs md:text-sm" data-i18n="stat3">فرع حول العالم</p>
-        </div>
-        <div class="glass-card p-3 md:p-6 rounded-2xl">
-          <div class="stat-number text-2xl md:text-4xl font-black mb-0.5 md:mb-1">25</div>
-          <p class="text-xs md:text-sm" data-i18n="stat4">عاماً من التميز</p>
+    <!-- special offers + parallax -->
+    <section id="offers" data-scroll-section style="background: radial-gradient(circle at 20% 30%, #3e2b1b, #0b0b0b);">
+      <div class="container">
+        <h2>🔥 weekly blaze</h2>
+        <div class="glass-card" style="display: flex; flex-wrap: wrap; align-items: center;">
+          <div style="flex: 1; min-width: 250px;">
+            <h3 style="font-size: 2.5rem;">double smash + fries</h3>
+            <p style="font-size: 2rem; font-weight: bold; color: #ffb347;">$16.90</p>
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400&auto=format" style="width: 100%; border-radius: 40px;" loading="lazy">
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="clients" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
-    <video class="section-video" autoplay muted loop playsinline>
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-business-deal-handshake-338-large.mp4" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="section-content max-w-7xl mx-auto text-center">
-      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1" data-i18n="clientsSubtitle">ثقة العملاء</h2>
-      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12" data-i18n="clientsTitle">من شركاؤنا</h3>
-      <div class="flex flex-wrap justify-center gap-2 md:gap-5 items-center">
-        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client1">شركة أموال</div>
-        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client2">بنك الريان</div>
-        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client3">مؤسسة نماء</div>
-        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client4">مجموعة فرسان</div>
-        <div class="glass-card px-3 md:px-6 py-1.5 md:py-3 rounded-xl text-base md:text-xl font-bold" data-i18n="client5">هيئة العدالة</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="awards" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
-    <video class="section-video" autoplay muted loop playsinline>
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-conference-with-lots-of-people-341-large.mp4" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="section-content max-w-7xl mx-auto">
-      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1 text-center" data-i18n="awardsSubtitle">تكريمات</h2>
-      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12 text-center" data-i18n="awardsTitle">جوائز وتقديرات</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-7">
-        <div class="glass-card p-5 md:p-7 rounded-2xl text-center">
-          <i class="fas fa-trophy text-3xl md:text-4xl mb-2 md:mb-3"></i>
-          <h4 class="text-lg md:text-xl font-bold mb-1" data-i18n="award1Title">أفضل مكتب محاماة 2025</h4>
-          <p class="text-xs md:text-sm" data-i18n="award1Desc">جوائز الشرق الأوسط للقانون</p>
-        </div>
-        <div class="glass-card p-5 md:p-7 rounded-2xl text-center">
-          <i class="fas fa-medal text-3xl md:text-4xl mb-2 md:mb-3"></i>
-          <h4 class="text-lg md:text-xl font-bold mb-1" data-i18n="award2Title">التميز في التحكيم الدولي</h4>
-          <p class="text-xs md:text-sm" data-i18n="award2Desc">مجلة القانون العالمي</p>
-        </div>
-        <div class="glass-card p-5 md:p-7 rounded-2xl text-center">
-          <i class="fas fa-star text-3xl md:text-4xl mb-2 md:mb-3"></i>
-          <h4 class="text-lg md:text-xl font-bold mb-1" data-i18n="award3Title">جائزة الابتكار القانوني</h4>
-          <p class="text-xs md:text-sm" data-i18n="award3Desc">منتدى العدالة الدولي</p>
+    <!-- about -->
+    <section id="about" data-scroll-section>
+      <div class="container">
+        <h2>craft since 2012</h2>
+        <div class="glass-card" style="max-width: 800px; margin: 0 auto; text-align: center;">
+          <p style="font-size: 1.3rem; line-height: 1.6;">We dry-age our beef for 45 days, grind in-house, and smoke our own cheese. Every burger is flame-grilled over mesquite wood.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="faq" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
-    <video class="section-video" autoplay muted loop playsinline>
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-library-shelves-with-books-43865-large.mp4" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="section-content max-w-7xl mx-auto">
-      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1 text-center" data-i18n="faqSubtitle">استفساراتكم</h2>
-      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12 text-center" data-i18n="faqTitle">الأسئلة الشائعة</h3>
-      <div class="space-y-3 md:space-y-5">
-        <div class="glass-card p-4 md:p-5 rounded-2xl">
-          <h4 class="text-base md:text-lg font-bold mb-1" data-i18n="faq1Q">كيف أستشير محاميًا؟</h4>
-          <p class="text-xs md:text-sm" data-i18n="faq1A">يمكنك حجز استشارة عبر موقعنا أو الاتصال بفريق الدعم. نقدم استشارات أولية مجانية.</p>
-        </div>
-        <div class="glass-card p-4 md:p-5 rounded-2xl">
-          <h4 class="text-base md:text-lg font-bold mb-1" data-i18n="faq2Q">ما هي تكلفة الخدمات القانونية؟</h4>
-          <p class="text-xs md:text-sm" data-i18n="faq2A">تعتمد التكلفة على نوع القضية ومدى تعقيدها. نقدم عروض أسعار شفافة ومفصلة.</p>
-        </div>
-        <div class="glass-card p-4 md:p-5 rounded-2xl">
-          <h4 class="text-base md:text-lg font-bold mb-1" data-i18n="faq3Q">هل تتعاملون مع قضايا دولية؟</h4>
-          <p class="text-xs md:text-sm" data-i18n="faq3A">نعم، لدينا فريق متخصص في القضايا العابرة للحدود ولدينا شراكات مع مكاتب حول العالم.</p>
+    <!-- reviews -->
+    <section id="reviews" data-scroll-section>
+      <div class="container">
+        <h2>words of flame</h2>
+        <div class="reviews-grid">
+          <div class="review-card">
+            <i class="fas fa-star" style="color: #ffb347;"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <p style="margin: 1rem 0;">"Best burger I’ve ever had. The truffle one is insane."</p>
+            <p>— J. Oliver</p>
+          </div>
+          <div class="review-card">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <p style="margin: 1rem 0;">"Smoke flavour in every bite. Feels like fine dining."</p>
+            <p>— E. Gaston</p>
+          </div>
+          <div class="review-card">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            <p style="margin: 1rem 0;">"The fire sauce is addictive. Great vibe."</p>
+            <p>— L. Wang</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact" class="relative py-16 md:py-20 px-4 md:px-16 overflow-hidden">
-    <video class="section-video" autoplay muted loop playsinline>
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-office-with-computers-43864-large.mp4" type="video/mp4">
-    </video>
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="section-content max-w-7xl mx-auto">
-      <h2 class="text-xs sm:text-sm tracking-[0.3em] uppercase mb-1 text-center" data-i18n="contactSubtitle">تواصلوا معنا</h2>
-      <h3 class="text-2xl sm:text-3xl md:text-5xl font-black mb-8 md:mb-12 text-center" data-i18n="contactTitle">نحن هنا لمساعدتكم</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-        <div class="glass-card p-5 md:p-7 rounded-2xl">
-          <h4 class="text-lg md:text-xl font-bold mb-3 md:mb-5" data-i18n="contactInfoTitle">معلومات الاتصال</h4>
-          <ul class="space-y-2 md:space-y-3 text-xs md:text-sm">
-            <li><i class="fas fa-map-marker-alt ml-2"></i> <span data-i18n="address">الرياض، المملكة العربية السعودية</span></li>
-            <li><i class="fas fa-phone-alt ml-2"></i> +966 11 234 5678</li>
-            <li><i class="fas fa-envelope ml-2"></i> info@bawarith-law.com</li>
-            <li><i class="fas fa-clock ml-2"></i> <span data-i18n="workHours">السبت - الخميس: 9 صباحاً - 9 مساءً</span></li>
-          </ul>
-        </div>
-        <div class="glass-card p-5 md:p-7 rounded-2xl">
-          <h4 class="text-lg md:text-xl font-bold mb-3 md:mb-5" data-i18n="formTitle">أرسل رسالة</h4>
-          <form>
-            <input type="text" data-i18n-placeholder="namePlaceholder" placeholder="الاسم" class="w-full p-2 mb-2 md:mb-3 bg-black/50 border border-gold/30 rounded-lg text-xs md:text-sm">
-            <input type="email" data-i18n-placeholder="emailPlaceholder" placeholder="البريد الإلكتروني" class="w-full p-2 mb-2 md:mb-3 bg-black/50 border border-gold/30 rounded-lg text-xs md:text-sm">
-            <textarea rows="3" data-i18n-placeholder="messagePlaceholder" placeholder="الرسالة" class="w-full p-2 mb-2 md:mb-3 bg-black/50 border border-gold/30 rounded-lg text-xs md:text-sm"></textarea>
-            <button class="gold-btn w-full py-2 text-sm md:text-base font-bold" data-i18n="submitBtn">إرسال</button>
-          </form>
+    <!-- call to action -->
+    <section class="cta-section" data-scroll-section>
+      <div class="container">
+        <h2 style="color: white; -webkit-text-fill-color: white;">reserve your table</h2>
+        <div class="magnetic-btn">
+          <a href="#" class="btn" style="background: #ffb347; color: black;">BOOK EXPERIENCE</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="bg-black py-6 md:py-10 border-t border-gold/20 px-4 md:px-6">
-    <div class="max-w-7xl mx-auto text-center">
-      <div class="footer-logo text-lg md:text-2xl font-black mb-3 md:mb-5" data-i18n="footerLogo">شركة صالح إبراهيم باوارث وخالد علي باوارث للمحاماة والاستشارات القانونية</div>
-      <div class="flex justify-center gap-3 md:gap-5 mb-4 md:mb-6 text-lg md:text-xl">
-        <a href="#" class="hover:text-gold transition"><i class="fab fa-linkedin"></i></a>
-        <a href="#" class="hover:text-gold transition"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="hover:text-gold transition"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="hover:text-gold transition"><i class="fab fa-facebook"></i></a>
-      </div>
-      <p class="text-xs md:text-sm" data-i18n="copyright">© 2026 شركة باوارث للمحاماة. جميع الحقوق محفوظة.</p>
-    </div>
-  </footer>
+    <!-- sauce again -->
+    <div class="sauce-divider"></div>
+  </div>
 
+  <!-- scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+  <!-- Lottie (for microinteractions, we'll use a simple flame animation from lottiefiles CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  
   <script>
     (function() {
-      // ========== PRELOADER مُحسَّن بالكامل ==========
-      const preloader = document.getElementById('preloader');
-      const preloaderVideo = document.getElementById('preloaderVideo');
-
-      // إزالة أي loop (التكرار) وجعل الفيديو يشتغل مرة واحدة فقط
-      preloaderVideo.removeAttribute('loop');
-
-      // دالة لإخفاء preloader بسلاسة
-      function hidePreloader() {
-        if (!preloader || preloader.style.display === 'none') return;
-        gsap.to(preloader, {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          onComplete: () => {
-            preloader.style.display = 'none';
-          }
-        });
-      }
-
-      // عند انتهاء الفيديو نخفيه فوراً
-      preloaderVideo.addEventListener('ended', hidePreloader);
-      // لو حصل خطأ في تحميل الفيديو نستعمل التايم آوت الآمن
-      preloaderVideo.addEventListener('error', hidePreloader);
-      // تأمين: بعد 5 ثواني يختفي على أي حال (فيديو طويل أو معلق)
-      setTimeout(hidePreloader, 5000);
-
-      // باقي الكود: منتقي الألوان، Lenis، GSAP، Three.js، الترجمة...
-
-      const colorOptions = [
-        { name: 'ذهبي أساسي', hex: '#D4B87B', rgb: '212,184,123' },
-        { name: 'أصفر فاتح', hex: '#F0E68C', rgb: '240,230,140' },
-        { name: 'ذهبي غامق', hex: '#B8860B', rgb: '184,134,11' },
-        { name: 'ذهبي قديم', hex: '#CFB53B', rgb: '207,181,59' },
-        { name: 'فضي فاتح', hex: '#E0E0E0', rgb: '224,224,224' },
-        { name: 'كريمي', hex: '#FFFDD0', rgb: '255,253,208' },
-        { name: 'برونزي', hex: '#CD7F32', rgb: '205,127,50' },
-        { name: 'عاجي', hex: '#FFFFF0', rgb: '255,255,240' }
-      ];
-
-      const colorPanel = document.getElementById('colorPickerPanel');
-      colorOptions.forEach(color => {
-        const div = document.createElement('div');
-        div.className = 'color-option';
-        div.style.backgroundColor = color.hex;
-        div.setAttribute('data-hex', color.hex);
-        div.setAttribute('data-rgb', color.rgb);
-        div.setAttribute('title', color.name);
-        div.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const hex = this.getAttribute('data-hex');
-          const rgb = this.getAttribute('data-rgb');
-          document.documentElement.style.setProperty('--gold', hex);
-          document.documentElement.style.setProperty('--gold-rgb', rgb);
-          if (window.particlesMaterial) {
-            window.particlesMaterial.color.set(hex);
-          }
-          colorPanel.classList.add('hidden');
-        });
-        colorPanel.appendChild(div);
+      // init locomotive scroll
+      const scrollEl = document.querySelector('[data-scroll-container]');
+      const locoScroll = new LocomotiveScroll({
+        el: scrollEl,
+        smooth: true,
+        multiplier: 0.8,
+        smartphone: { smooth: true },
+        tablet: { smooth: true }
       });
 
-      function toggleColorPanel() {
-        colorPanel.classList.toggle('hidden');
-      }
+      // update ScrollTrigger when locomotive scroll updates
+      ScrollTrigger.scrollerProxy(scrollEl, {
+        scrollTop(value) {
+          return arguments.length ? locoScroll.scrollTo(value, 0, 0) : locoScroll.scroll.instance.scroll.y;
+        },
+        getBoundingClientRect() {
+          return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
+        },
+        pinType: scrollEl.style.transform ? "transform" : "fixed"
+      });
 
-      const colorIconMobile = document.getElementById('colorPaletteIconMobile');
-      if (colorIconMobile) {
-        colorIconMobile.addEventListener('click', function(e) {
-          e.stopPropagation();
-          toggleColorPanel();
-        });
-      }
+      // --- Three.js smoke/fire effect for hero background canvas ---
+      const canvas = document.getElementById('burgerCanvas');
+      if (canvas) {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        camera.position.z = 15;
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      document.addEventListener('click', function(e) {
-        if (!colorPanel.contains(e.target) && !colorIconMobile?.contains(e.target)) {
-          colorPanel.classList.add('hidden');
+        // particles for fire/smoke
+        const particlesGeo = new THREE.BufferGeometry();
+        const particlesCount = 400;
+        const posArray = new Float32Array(particlesCount * 3);
+        for(let i = 0; i < particlesCount * 3; i += 3) {
+          posArray[i] = (Math.random() - 0.5) * 12;
+          posArray[i+1] = (Math.random() - 0.5) * 8;
+          posArray[i+2] = (Math.random() - 0.5) * 5;
         }
-      });
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMat = new THREE.PointsMaterial({
+          color: 0xff6600,
+          size: 0.15,
+          blending: THREE.AdditiveBlending,
+          transparent: true,
+          opacity: 0.7,
+          map: createSprite('radial-gradient(circle, #ffb347, #ff4d00)')
+        });
+        const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+        scene.add(particlesMesh);
 
-      colorPanel.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
+        function createSprite(colorStops) {
+          const canvas = document.createElement('canvas');
+          canvas.width = 32;
+          canvas.height = 32;
+          const ctx = canvas.getContext('2d');
+          const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+          gradient.addColorStop(0, 'rgba(255, 140, 0, 1)');
+          gradient.addColorStop(0.6, 'rgba(255, 80, 0, 0.8)');
+          gradient.addColorStop(1, 'rgba(255,0,0,0)');
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, 32, 32);
+          const texture = new THREE.CanvasTexture(canvas);
+          return texture;
+        }
 
-      // Lenis scroll
-      const lenis = new Lenis();
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
+        function animateParticles() {
+          requestAnimationFrame(animateParticles);
+          particlesMesh.rotation.y += 0.0005;
+          particlesMesh.rotation.x += 0.0003;
+          renderer.render(scene, camera);
+        }
+        animateParticles();
+
+        // resize handler
+        window.addEventListener('resize', () => {
+          camera.aspect = canvas.clientWidth / canvas.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        });
       }
-      requestAnimationFrame(raf);
 
-      // GSAP ScrollTrigger
+      // --- GSAP animations for floating ingredients & scroll triggers ---
       gsap.registerPlugin(ScrollTrigger);
-      gsap.utils.toArray('.section-content').forEach(section => {
-        gsap.from(section, {
+
+      // floating animation on hero ingredients (continuous)
+      gsap.to('#float1', { y: -30, x: 10, duration: 2, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to('#float2', { y: 30, x: -15, duration: 2.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to('#float3', { y: -20, x: 20, duration: 2.7, repeat: -1, yoyo: true, ease: "sine.inOut" });
+      gsap.to('#float4', { y: 25, x: -10, duration: 2.1, repeat: -1, yoyo: true, ease: "sine.inOut" });
+
+      // parallax on hero burger
+      gsap.to('.burger-main', {
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+          scroller: scrollEl
+        },
+        y: 150,
+        scale: 0.9,
+        rotation: 5
+      });
+
+      // ingredient explosion on menu card hover (using GSAP quickTo)
+      const cards = document.querySelectorAll('.menu-card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', (e) => {
+          // clone ingredient dots and animate
+          const ingredients = card.querySelectorAll('.card-ingredient');
+          ingredients.forEach((ing, idx) => {
+            gsap.killTweensOf(ing);
+            ing.style.opacity = 1;
+            const rect = card.getBoundingClientRect();
+            const x = (Math.random() - 0.5) * 200;
+            const y = (Math.random() - 0.5) * 200 - 50;
+            gsap.to(ing, {
+              x: x,
+              y: y,
+              scale: 3,
+              opacity: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              onComplete: () => { ing.style.opacity = 0; gsap.set(ing, { x: 0, y: 0, scale: 1 }); }
+            });
+          });
+        });
+      });
+
+      // magnetic effect on buttons (simple)
+      const magneticBtns = document.querySelectorAll('.magnetic-btn');
+      magneticBtns.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width/2;
+          const y = e.clientY - rect.top - rect.height/2;
+          gsap.to(btn, { x: x*0.2, y: y*0.1, duration: 0.4, ease: "power2.out" });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
+        });
+      });
+
+      // custom cursor
+      const cursor = document.getElementById('customCursor');
+      document.addEventListener('mousemove', (e) => {
+        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+      });
+      document.querySelectorAll('a, button, .menu-card').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+
+      // Lottie micro-interaction (add small animation somewhere - we attach to a hidden div for effect)
+      const lottieContainer = document.createElement('div');
+      lottieContainer.style.position = 'absolute';
+      lottieContainer.style.width = '1px';
+      lottieContainer.style.height = '1px';
+      lottieContainer.style.opacity = '0';
+      document.body.appendChild(lottieContainer);
+      lottie.loadAnimation({
+        container: lottieContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://assets2.lottiefiles.com/packages/lf20_p8bfn5kz.json' // free fire animation
+      });
+
+      // ScrollTrigger animations for sections (fade up)
+      gsap.utils.toArray('[data-scroll-section]').forEach(section => {
+        gsap.from(section.querySelectorAll('h2, .glass-card, .review-card'), {
           scrollTrigger: {
             trigger: section,
-            start: "top 85%",
+            start: 'top 85%',
+            scroller: scrollEl,
           },
           y: 80,
           opacity: 0,
-          duration: 1.2,
+          duration: 1,
+          stagger: 0.1,
           ease: "power3.out"
         });
       });
-      gsap.from('#hero h1', {
-        y: 100,
-        opacity: 0,
-        duration: 1.5,
-        ease: "power4.out"
-      });
 
-      // Mobile menu
-      const menuToggle = document.getElementById('menuToggle');
-      const closeMenu = document.getElementById('closeMenu');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if (menuToggle && closeMenu && mobileMenu) {
-        menuToggle.addEventListener('click', () => {
-          mobileMenu.classList.remove('translate-x-full');
-        });
-        closeMenu.addEventListener('click', () => {
-          mobileMenu.classList.add('translate-x-full');
-        });
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.add('translate-x-full');
-          });
-        });
-      }
+      // after locomotive scroll update, update scrolltrigger
+      locoScroll.on('scroll', ScrollTrigger.update);
+      ScrollTrigger.addEventListener('refresh', () => locoScroll.update());
+      ScrollTrigger.refresh();
 
-      // Three.js particles
-      const heroSection = document.getElementById('hero');
-      if (heroSection) {
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        heroSection.appendChild(renderer.domElement);
-        renderer.domElement.style.position = 'absolute';
-        renderer.domElement.style.top = '0';
-        renderer.domElement.style.left = '0';
-        renderer.domElement.style.zIndex = '1';
-        renderer.domElement.style.pointerEvents = 'none';
-
-        const geometry = new THREE.BufferGeometry();
-        const vertices = [];
-        for (let i = 0; i < 1000; i++) {
-          vertices.push(THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000), THREE.MathUtils.randFloatSpread(2000));
-        }
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-        const particlesMaterial = new THREE.PointsMaterial({ color: 0xD4B87B, size: 1.5 });
-        window.particlesMaterial = particlesMaterial;
-        const particles = new THREE.Points(geometry, particlesMaterial);
-        scene.add(particles);
-        camera.position.z = 1000;
-
-        function animate() {
-          requestAnimationFrame(animate);
-          particles.rotation.y += 0.0005;
-          renderer.render(scene, camera);
-        }
-        animate();
-
-        window.addEventListener('resize', () => {
-          camera.aspect = window.innerWidth / window.innerHeight;
-          camera.updateProjectionMatrix();
-          renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-      }
-
-      // الترجمة
-      const translations = {
-        ar: {
-          brandName: 'شركة صالح إبراهيم باوراث وخالد علي باوراث للمحاماة و اللاستشارات القانونية',
-          navHome: 'الرئيسية',
-          navServices: 'خدماتنا',
-          navAbout: 'من نحن',
-          navStats: 'إحصائيات',
-          navClients: 'عملاؤنا',
-          navAwards: 'جوائز',
-          navFaq: 'الأسئلة',
-          navContact: 'العمل معنا',
-          heroLine1: 'شركة صالح إبراهيم باوراث',
-          heroLine2: 'وخالد على باوراث للمحاماة و الاستشارات القانونية',
-          heroDesc: 'حيث تلتقي الخبرة بالأمانة، نحن لا ندافع عن قضيتك فحسب بل نحميك من مخاطر المستقبل.',
-          heroStat1: '+500 قضية ناجحة',
-          heroStat2: 'تغطية دولية',
-          heroBtn: 'اكتشف خدماتنا',
-          servicesSubtitle: 'تخصصاتنا',
-          servicesTitle: 'مجالات الخبرة',
-          service1Title: 'التقاضي الجنائي',
-          service1Desc: 'دفاع صلب في أعقد القضايا الجنائية أمام المحاكم العليا.',
-          service2Title: 'قانون الشركات',
-          service2Desc: 'تأسيس وهيكلة الشركات وحماية العلامات التجارية عالمياً.',
-          service3Title: 'التحكيم الدولي',
-          service3Desc: 'حل المنازعات التجارية العابرة للحدود بأعلى معايير السرية.',
-          aboutSubtitle: 'لماذا باوارث؟',
-          aboutTitle: 'نحن لا نربح القضايا فقط، بل نصنع السوابق القانونية.',
-          aboutDesc: 'تأسست شركة صالح إبراهيم باوارث وخالد على باوارث للمحاماة لتكون المرجع الأول في الشرق الأوسط. نجمع بين الخبرة الأكاديمية العميقة والتحرك الميداني الجريء.',
-          aboutLi1: 'فريق من المستشارين الدوليين',
-          aboutLi2: 'سرية بيانات مطلقة بنظام تشفير عسكري',
-          aboutLi3: 'استجابة فورية على مدار الساعة',
-          yearsText: 'عاماً من الخبرة',
-          statsSubtitle: 'أرقامنا',
-          statsTitle: 'إحصائيات تروي قصتنا',
-          stat1: 'قضية ناجحة',
-          stat2: 'خبير قانوني',
-          stat3: 'فرع حول العالم',
-          stat4: 'عاماً من التميز',
-          clientsSubtitle: 'ثقة العملاء',
-          clientsTitle: 'من شركاؤنا',
-          client1: 'شركة أموال',
-          client2: 'بنك الريان',
-          client3: 'مؤسسة نماء',
-          client4: 'مجموعة فرسان',
-          client5: 'هيئة العدالة',
-          awardsSubtitle: 'تكريمات',
-          awardsTitle: 'جوائز وتقديرات',
-          award1Title: 'أفضل مكتب محاماة 2025',
-          award1Desc: 'جوائز الشرق الأوسط للقانون',
-          award2Title: 'التميز في التحكيم الدولي',
-          award2Desc: 'مجلة القانون العالمي',
-          award3Title: 'جائزة الابتكار القانوني',
-          award3Desc: 'منتدى العدالة الدولي',
-          faqSubtitle: 'استفساراتكم',
-          faqTitle: 'الأسئلة الشائعة',
-          faq1Q: 'كيف أستشير محاميًا؟',
-          faq1A: 'يمكنك حجز استشارة عبر موقعنا أو الاتصال بفريق الدعم. نقدم استشارات أولية مجانية.',
-          faq2Q: 'ما هي تكلفة الخدمات القانونية؟',
-          faq2A: 'تعتمد التكلفة على نوع القضية ومدى تعقيدها. نقدم عروض أسعار شفافة ومفصلة.',
-          faq3Q: 'هل تتعاملون مع قضايا دولية؟',
-          faq3A: 'نعم، لدينا فريق متخصص في القضايا العابرة للحدود ولدينا شراكات مع مكاتب حول العالم.',
-          contactSubtitle: 'تواصلوا معنا',
-          contactTitle: 'نحن هنا لمساعدتكم',
-          contactInfoTitle: 'معلومات الاتصال',
-          address: 'الرياض، المملكة العربية السعودية',
-          workHours: 'السبت - الخميس: 9 صباحاً - 9 مساءً',
-          formTitle: 'أرسل رسالة',
-          namePlaceholder: 'الاسم',
-          emailPlaceholder: 'البريد الإلكتروني',
-          messagePlaceholder: 'الرسالة',
-          submitBtn: 'إرسال',
-          footerLogo: 'شركة صالح إبراهيم باوارث وخالد علي باوارث للمحاماة والاستشارات القانونية',
-          copyright: '© 2026 شركة باوارث للمحاماة. جميع الحقوق محفوظة.'
-        },
-        en: {
-          brandName: 'Saleh Ibrahim Bawarith & Khaled Ali Bawarith Law Firm',
-          navHome: 'Home',
-          navServices: 'Services',
-          navAbout: 'About',
-          navStats: 'Statistics',
-          navClients: 'Clients',
-          navAwards: 'Awards',
-          navFaq: 'FAQ',
-          navContact: 'Contact',
-          heroLine1: 'Saleh Ibrahim Bawarith',
-          heroLine2: '& Khaled Ali Bawarith Law Firm',
-          heroDesc: 'Where expertise meets trust. We don’t just defend your case; we protect you from future risks.',
-          heroStat1: '+500 Successful Cases',
-          heroStat2: 'International Coverage',
-          heroBtn: 'Discover Our Services',
-          servicesSubtitle: 'Our Expertise',
-          servicesTitle: 'Areas of Practice',
-          service1Title: 'Criminal Litigation',
-          service1Desc: 'Robust defense in the most complex criminal cases before supreme courts.',
-          service2Title: 'Corporate Law',
-          service2Desc: 'Company formation, structuring, and global trademark protection.',
-          service3Title: 'International Arbitration',
-          service3Desc: 'Cross-border commercial dispute resolution with highest confidentiality.',
-          aboutSubtitle: 'Why Bawarith?',
-          aboutTitle: 'We don’t just win cases; we set legal precedents.',
-          aboutDesc: 'Saleh Ibrahim Bawarith & Khaled Ali Bawarith Law Firm was established to be the premier reference in the Middle East. We combine deep academic expertise with bold field action.',
-          aboutLi1: 'Team of international consultants',
-          aboutLi2: 'Absolute data confidentiality with military-grade encryption',
-          aboutLi3: '24/7 immediate response',
-          yearsText: 'Years of experience',
-          statsSubtitle: 'Our Numbers',
-          statsTitle: 'Statistics That Tell Our Story',
-          stat1: 'Successful Cases',
-          stat2: 'Legal Experts',
-          stat3: 'Offices Worldwide',
-          stat4: 'Years of Excellence',
-          clientsSubtitle: 'Client Trust',
-          clientsTitle: 'Our Partners',
-          client1: 'Amwal Company',
-          client2: 'Al Rayan Bank',
-          client3: 'Nama Foundation',
-          client4: 'Fursan Group',
-          client5: 'Justice Authority',
-          awardsSubtitle: 'Honors',
-          awardsTitle: 'Awards & Recognitions',
-          award1Title: 'Best Law Firm 2025',
-          award1Desc: 'Middle East Law Awards',
-          award2Title: 'Excellence in International Arbitration',
-          award2Desc: 'Global Law Magazine',
-          award3Title: 'Legal Innovation Award',
-          award3Desc: 'International Justice Forum',
-          faqSubtitle: 'Your Inquiries',
-          faqTitle: 'Frequently Asked Questions',
-          faq1Q: 'How can I consult a lawyer?',
-          faq1A: 'You can book a consultation via our website or call our support team. We offer free initial consultations.',
-          faq2Q: 'What is the cost of legal services?',
-          faq2A: 'The cost depends on the case type and complexity. We provide transparent and detailed quotes.',
-          faq3Q: 'Do you handle international cases?',
-          faq3A: 'Yes, we have a specialized team for cross-border cases and partnerships with offices worldwide.',
-          contactSubtitle: 'Contact Us',
-          contactTitle: 'We Are Here to Help',
-          contactInfoTitle: 'Contact Information',
-          address: 'Riyadh, Saudi Arabia',
-          workHours: 'Sat - Thu: 9 AM - 9 PM',
-          formTitle: 'Send a Message',
-          namePlaceholder: 'Name',
-          emailPlaceholder: 'Email',
-          messagePlaceholder: 'Message',
-          submitBtn: 'Send',
-          footerLogo: 'Saleh Ibrahim Bawarith & Khaled Ali Bawarith Law Firm',
-          copyright: '© 2026 Bawarith Law Firm. All rights reserved.'
-        }
-      };
-
-      let currentLang = 'ar';
-
-      function updateLanguage(lang) {
-        document.documentElement.lang = lang;
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('langToggle').textContent = lang === 'ar' ? 'EN' : 'AR';
-        if (document.getElementById('langToggleMobile')) {
-          document.getElementById('langToggleMobile').textContent = lang === 'ar' ? 'EN' : 'AR';
-        }
-        const elements = document.querySelectorAll('[data-i18n]');
-        elements.forEach(el => {
-          const key = el.getAttribute('data-i18n');
-          if (translations[lang][key]) {
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-              el.placeholder = translations[lang][key];
-            } else {
-              el.textContent = translations[lang][key];
-            }
-          }
-        });
-        const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
-        placeholderElements.forEach(el => {
-          const key = el.getAttribute('data-i18n-placeholder');
-          if (translations[lang][key]) {
-            el.placeholder = translations[lang][key];
-          }
-        });
-      }
-
-      document.getElementById('langToggle').addEventListener('click', () => {
-        currentLang = currentLang === 'ar' ? 'en' : 'ar';
-        updateLanguage(currentLang);
-      });
-      if (document.getElementById('langToggleMobile')) {
-        document.getElementById('langToggleMobile').addEventListener('click', () => {
-          currentLang = currentLang === 'ar' ? 'en' : 'ar';
-          updateLanguage(currentLang);
-        });
-      }
-
-      updateLanguage(currentLang);
+      // mobile performance: disable heavy effects if needed (already handled by css media)
     })();
   </script>
+
+  <!-- additional styles for nicer glassmorphism and responsiveness -->
+  <style>
+    .menu-card { position: relative; overflow: hidden; }
+    .card-ingredient { position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; border-radius: 50%; background: #ffb347; filter: blur(8px); z-index: 30; }
+    .glass-card { transition: transform 0.2s; }
+    .glass-card:hover { transform: scale(1.02); border-color: #ffb347; }
+    img { border-radius: 30px; }
+    .magnetic-btn { display: inline-block; }
+    /* ensure canvas is behind */
+    #burgerCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .hero .container { position: relative; z-index: 5; }
+  </style>
 </body>
 </html>
